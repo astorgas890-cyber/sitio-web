@@ -3,27 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Informática</title>
+    <title>Informática - Feria Vocacional</title>
     <style>
         /* ================= VARIABLES Y RESET ================= */
         :root {
             --primary: #00d2ff;
             --secondary: #3a7bd5;
-            --dark: #0f172a;
-            --dark-card: #1e293b;
-            --text-light: #e2e8f0;
-            --text-muted: #94a3b8;
+            --accent: #ff007f;
+            --dark: #070b14;
+            --dark-card: rgba(30, 41, 59, 0.6);
+            --text-light: #f8fafc;
+            --text-muted: #cbd5e1;
         }
 
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', system-ui, sans-serif; }
-        
-        html { scroll-behavior: smooth; }
         
         body { 
             background-color: var(--dark); 
             color: var(--text-light); 
             line-height: 1.6; 
             overflow-x: hidden; 
+            min-height: 100vh;
         }
 
         /* ================= FONDO ANIMADO ================= */
@@ -34,7 +34,7 @@
             width: 100vw;
             height: 100vh;
             z-index: -1;
-            opacity: 0.3;
+            opacity: 0.4;
         }
 
         /* ================= BARRA DE NAVEGACIÓN ================= */
@@ -42,30 +42,38 @@
             position: fixed;
             top: 0;
             width: 100%;
-            padding: 1.5rem 2rem;
+            padding: 1.2rem 2rem;
             display: flex;
             justify-content: space-between;
             align-items: center;
             z-index: 1000;
-            transition: background-color 0.4s, padding 0.4s, box-shadow 0.4s;
+            background-color: rgba(7, 11, 20, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
         }
-        .navbar.scrolled {
-            background-color: rgba(15, 23, 42, 0.95);
-            padding: 1rem 2rem;
-            backdrop-filter: blur(10px);
-            box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+        .logo { 
+            font-size: 1.6rem; 
+            font-weight: 800; 
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: 1px; 
         }
-        .logo { font-size: 1.5rem; font-weight: bold; color: var(--primary); letter-spacing: 1px; }
-        .nav-links { display: flex; gap: 1.5rem; }
+        .nav-links { display: flex; gap: 2rem; }
         .nav-links a {
-            color: white;
+            color: var(--text-muted);
             text-decoration: none;
-            font-weight: 500;
+            font-weight: 600;
+            font-size: 1.05rem;
             position: relative;
             padding-bottom: 5px;
             transition: color 0.3s;
+            cursor: pointer;
         }
-        .nav-links a:hover { color: var(--primary); }
+        .nav-links a:hover, .nav-links a.active-link { color: white; }
+        
         /* Línea animada bajo los enlaces */
         .nav-links a::after {
             content: '';
@@ -73,37 +81,55 @@
             width: 0;
             height: 2px;
             bottom: 0;
-            left: 0;
-            background-color: var(--primary);
-            transition: width 0.3s;
+            left: 50%;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            transition: all 0.3s ease;
+            transform: translateX(-50%);
         }
-        .nav-links a:hover::after { width: 100%; }
+        .nav-links a:hover::after, .nav-links a.active-link::after { width: 100%; }
+
+        /* ================= SISTEMA DE PÁGINAS (VISTAS) ================= */
+        .page-view {
+            display: none; /* Oculto por defecto */
+            opacity: 0;
+            padding-top: 80px; /* Espacio para el navbar */
+            min-height: 100vh;
+            animation: fadeView 0.5s forwards ease-out;
+        }
+        .page-view.active-view {
+            display: block;
+        }
+        #inicio.active-view {
+            display: flex;
+        }
+
+        @keyframes fadeView {
+            0% { opacity: 0; transform: translateY(20px) scale(0.98); }
+            100% { opacity: 1; transform: translateY(0) scale(1); }
+        }
 
         /* ================= HERO SECTION (CABECERA) ================= */
         .hero {
-            height: 100vh;
-            display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
             text-align: center;
             padding: 0 1rem;
-            background: radial-gradient(circle at center, rgba(58, 123, 213, 0.2) 0%, transparent 60%);
+            background: radial-gradient(circle at center, rgba(58, 123, 213, 0.15) 0%, transparent 60%);
         }
         .hero h1 {
-            font-size: 4rem;
+            font-size: 4.5rem;
             margin-bottom: 1rem;
-            background: linear-gradient(to right, var(--primary), var(--secondary));
+            background: linear-gradient(135deg, #ffffff 0%, var(--primary) 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            animation: fadeInDown 1s ease-out;
+            text-shadow: 0px 0px 20px rgba(0, 210, 255, 0.2);
         }
         .hero p {
-            font-size: 1.2rem;
+            font-size: 1.3rem;
             color: var(--text-muted);
-            max-width: 600px;
-            margin-bottom: 2rem;
-            animation: fadeInUp 1s ease-out 0.3s both;
+            max-width: 650px;
+            margin-bottom: 2.5rem;
         }
         .btn-main {
             display: inline-block;
@@ -114,309 +140,326 @@
             border-radius: 30px;
             font-weight: bold;
             font-size: 1.1rem;
-            transition: transform 0.3s, box-shadow 0.3s;
-            animation: fadeIn 1s ease-out 0.6s both;
+            cursor: pointer;
+            border: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 210, 255, 0.2);
         }
         .btn-main:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 20px rgba(0, 210, 255, 0.3);
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 10px 25px rgba(0, 210, 255, 0.4);
         }
 
         /* ================= SECCIONES Y CONTENEDORES ================= */
-        section { padding: 6rem 2rem; }
+        section { padding: 4rem 2rem 6rem; }
         .section-title {
             text-align: center;
-            font-size: 2.5rem;
-            margin-bottom: 3rem;
+            font-size: 2.8rem;
+            margin-bottom: 3.5rem;
             color: white;
+            position: relative;
+            display: inline-block;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 25%;
+            width: 50%;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, var(--primary), transparent);
         }
         .container { max-width: 1200px; margin: 0 auto; }
-        
-        /* Utilidad para animar elementos al hacer scroll */
-        .reveal {
-            opacity: 0;
-            transform: translateY(50px);
-            transition: all 0.8s ease-out;
-        }
-        .reveal.active {
-            opacity: 1;
-            transform: translateY(0);
-        }
 
-        /* ================= TARJETAS DE ESPECIALIDAD (ÁREAS) ================= */
-        .grid-3 {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 2rem;
-        }
-        .area-card {
+        /* ================= EFECTO GLASSMORPHISM EN TARJETAS ================= */
+        .grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 2.5rem; }
+        .grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(450px, 1fr)); gap: 2.5rem; }
+        
+        .card-glass {
             background-color: var(--dark-card);
-            padding: 2.5rem;
-            border-radius: 15px;
-            border: 1px solid rgba(255,255,255,0.05);
-            transition: transform 0.4s, border-color 0.4s;
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-radius: 20px;
+            border: 1px solid rgba(255,255,255,0.08);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             position: relative;
             overflow: hidden;
         }
-        .area-card:hover {
-            transform: translateY(-10px);
-            border-color: var(--primary);
+        .card-glass:hover {
+            transform: translateY(-12px);
+            border-color: rgba(0, 210, 255, 0.5);
+            box-shadow: 0 15px 40px rgba(0, 210, 255, 0.15);
         }
-        /* Brillo sutil de fondo en las tarjetas */
-        .area-card::before {
-            content: '';
-            position: absolute;
-            top: -50%; left: -50%; width: 200%; height: 200%;
-            background: radial-gradient(circle, rgba(0,210,255,0.1) 0%, transparent 50%);
-            opacity: 0;
-            transition: opacity 0.4s;
-            pointer-events: none;
+
+        /* ================= ÁREAS TÉCNICAS ================= */
+        .area-card { padding: 2.5rem; }
+        .area-card .icon { 
+            font-size: 3.5rem; 
+            margin-bottom: 1.5rem;
+            display: inline-block;
+            filter: drop-shadow(0 0 10px rgba(0, 210, 255, 0.4));
         }
-        .area-card:hover::before { opacity: 1; }
-        
-        .area-card .icon { font-size: 3rem; margin-bottom: 1rem; }
-        .area-card h3 { font-size: 1.5rem; margin-bottom: 1rem; color: white; }
+        .area-card h3 { font-size: 1.6rem; margin-bottom: 1rem; color: white; }
         .area-card p { color: var(--text-muted); margin-bottom: 1.5rem; }
 
-        /* Lista de habilidades dentro de la tarjeta */
         .skill-list { list-style: none; }
-        .skill-list li { margin-bottom: 0.5rem; display: flex; align-items: center; }
-        .skill-list li::before { content: '▹'; color: var(--primary); margin-right: 10px; font-weight: bold; }
+        .skill-list li { margin-bottom: 0.8rem; display: flex; align-items: center; font-size: 0.95rem; }
+        .skill-list li::before { content: '▹'; color: var(--primary); margin-right: 10px; font-size: 1.2rem; }
 
-        /* ================= PROYECTOS DESTACADOS ================= */
-        .grid-2 {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
-            gap: 2rem;
-        }
-        .project-card {
-            background-color: var(--dark-card);
-            border-radius: 15px;
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
-        }
+        /* ================= PROYECTOS ================= */
+        .project-card { display: flex; flex-direction: column; }
         .project-img-placeholder {
-            height: 200px;
-            background: linear-gradient(45deg, #2c3e50, #34495e);
+            height: 220px;
+            background: linear-gradient(135deg, rgba(15, 23, 42, 0.8), rgba(30, 41, 59, 0.8));
             display: flex;
             justify-content: center;
             align-items: center;
-            font-size: 3rem;
-            color: rgba(255,255,255,0.2);
-            border-bottom: 3px solid var(--primary);
+            font-size: 4rem;
+            border-bottom: 2px solid rgba(0, 210, 255, 0.2);
+            transition: all 0.4s ease;
         }
-        .project-content { padding: 2rem; }
-        .project-content h3 { color: var(--primary); margin-bottom: 1rem; }
+        .card-glass:hover .project-img-placeholder {
+            border-bottom-color: var(--primary);
+            background: linear-gradient(135deg, rgba(15, 23, 42, 0.9), rgba(58, 123, 213, 0.3));
+        }
+        .project-content { padding: 2.5rem; flex-grow: 1; }
+        .project-content h3 { color: white; margin-bottom: 1rem; font-size: 1.5rem; }
+        
+        .tags { margin-bottom: 1.2rem; }
         .tag {
             display: inline-block;
-            padding: 0.3rem 0.8rem;
-            background-color: rgba(0, 210, 255, 0.1);
+            padding: 0.4rem 1rem;
+            background: rgba(0, 210, 255, 0.1);
             color: var(--primary);
+            border: 1px solid rgba(0, 210, 255, 0.2);
             border-radius: 20px;
-            font-size: 0.85rem;
+            font-size: 0.8rem;
+            font-weight: bold;
             margin-right: 0.5rem;
-            margin-bottom: 1rem;
+            margin-bottom: 0.5rem;
+            letter-spacing: 0.5px;
         }
 
-        /* ================= FOOTER ================= */
-        footer {
-            background-color: #080b12;
-            text-align: center;
-            padding: 3rem 1rem;
-            border-top: 1px solid rgba(255,255,255,0.05);
+        /* ================= RESPONSIVO ================= */
+        @media (max-width: 768px) {
+            .navbar { flex-direction: column; gap: 1rem; padding: 1rem; }
+            .hero h1 { font-size: 3rem; }
+            .nav-links { gap: 1rem; }
+            .page-view { padding-top: 120px; }
         }
-
-        /* ================= ANIMACIONES KEYFRAMES ================= */
-        @keyframes fadeInDown {
-            from { opacity: 0; transform: translateY(-30px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        @keyframes fadeInUp {
-            from { opacity: 0; transform: translateY(30px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-
     </style>
 </head>
 <body>
 
-    <!-- Fondo de partículas -->
+    <!-- Fondo interactivo -->
     <canvas id="canvas-bg"></canvas>
 
     <!-- Barra de Navegación -->
     <nav class="navbar" id="navbar">
         <div class="logo">Informática</div>
         <div class="nav-links">
-            <a href="#inicio">Inicio</a>
-            <a href="#areas">Áreas Técnicas</a>
-            <a href="#proyectos">Proyectos</a>
+            <a data-target="inicio" class="nav-btn active-link">Inicio</a>
+            <a data-target="areas" class="nav-btn">Áreas Técnicas</a>
+            <a data-target="proyectos" class="nav-btn">Proyectos</a>
         </div>
     </nav>
 
-    <!-- Sección Inicial (Hero) -->
-    <header class="hero" id="inicio">
-        <h1>configuración y soporte a redes</h1>
-        <p>Configuración, Soporte, Programación y Almacenamiento en la Nube. Formando a los futuros  profesionales tecnológicos del mañana.</p>
-        <a href="#areas" class="btn-main">Descubrir Especialidad</a>
-    </header>
+    <!-- ================= VISTA 1: INICIO ================= -->
+    <section id="inicio" class="page-view hero active-view">
+        <h1>Configuración y Soporte</h1>
+        <p>Redes, Programación, Administración de Servidores y Almacenamiento en la Nube. Formando a los profesionales tecnológicos del mañana.</p>
+        <button data-target="areas" class="btn-main nav-btn">Descubrir Especialidad</button>
+    </section>
 
-    <!-- Sección de Áreas Técnicas -->
-    <section id="areas" class="container reveal">
+    <!-- ================= VISTA 2: ÁREAS TÉCNICAS ================= -->
+    <section id="areas" class="page-view container">
         <h2 class="section-title">¿Qué aprenderás con nosotros?</h2>
         <div class="grid-3">
             
-            <!-- Tarjeta 1: Programación -->
-            <div class="area-card">
+            <div class="card-glass area-card">
                 <div class="icon">💻</div>
                 <h3>Lógica y Programación</h3>
-                <p>Desarrollo de software desde cero. Aprende a crear aplicaciones, estructurar bases de datos y resolver problemas complejos con código.</p>
+                <p>Desarrollo de software desde cero. Creación de aplicaciones interactivas, bases de datos y resolución de problemas con código.</p>
                 <ul class="skill-list">
-                    <li>Programación en Python, C# y Web.</li>
+                    <li>Desarrollo web y CMS (Decap).</li>
                     <li>Microcontroladores (Arduino / C++).</li>
-                    <li>Diseño de interfaces e interactividad.</li>
-                    <li>Algoritmia y bases de datos relacionales.</li>
+                    <li>Diseño de interfaces dinámicas.</li>
+                    <li>Algoritmia y lógica estructurada.</li>
                 </ul>
             </div>
 
-            <!-- Tarjeta 2: Redes y Soporte -->
-            <div class="area-card">
+            <div class="card-glass area-card">
                 <div class="icon">🌐</div>
-                <h3>Redes y Soporte Técnico</h3>
-                <p>La columna vertebral de cualquier empresa. Aprende a diseñar infraestructuras de red seguras y a mantener equipos de cómputo.</p>
+                <h3>Redes y Soporte</h3>
+                <p>La columna vertebral corporativa. Diseño de infraestructuras de red seguras y mantenimiento de equipos a nivel profesional.</p>
                 <ul class="skill-list">
                     <li>Cableado estructurado y subneteo.</li>
-                    <li>Administración de Windows Server.</li>
+                    <li>Configuración de Switches y Routers.</li>
                     <li>Mantenimiento preventivo de Hardware.</li>
-                    <li>Seguridad informática básica (Firewalls).</li>
+                    <li>Implementación de protocolos seguros.</li>
                 </ul>
             </div>
 
-            <!-- Tarjeta 3: Cloud & Servidores -->
-            <div class="area-card">
+            <div class="card-glass area-card">
                 <div class="icon">☁️</div>
-                <h3>Cloud Computing & Servidores</h3>
-                <p>Entiende cómo funciona el internet por dentro. Configura y administra soluciones de almacenamiento y virtualización de nivel empresarial.</p>
+                <h3>Servidores y Sistemas</h3>
+                <p>Despliegue y administración de soluciones empresariales. Almacenamiento en red y gestión de servicios críticos.</p>
                 <ul class="skill-list">
-                    <li>Arquitectura de Data Centers.</li>
-                    <li>Virtualización avanzada (Hyper-V).</li>
+                    <li>Windows Server Datacenter.</li>
+                    <li>Sistemas Linux de bajo consumo.</li>
                     <li>Implementación de Servidores NAS.</li>
-                    <li>Despliegue de servicios IIS y FTP.</li>
+                    <li>Servicios web (IIS) locales.</li>
                 </ul>
             </div>
-
         </div>
     </section>
 
-    <!-- Sección de Proyectos -->
-    <section id="proyectos" class="container reveal">
+    <!-- ================= VISTA 3: PROYECTOS ================= -->
+    <section id="proyectos" class="page-view container">
         <h2 class="section-title">Proyectos Destacados</h2>
         <div class="grid-2">
             
-            <!-- Proyecto 1: Arduino -->
-            <div class="project-card">
-                <div class="project-img-placeholder">
-                    🎮
-                </div>
+            <div class="card-glass project-card">
+                <div class="project-img-placeholder">🎮</div>
                 <div class="project-content">
-                    <span class="tag">Hardware</span>
-                    <span class="tag">C++</span>
+                    <div class="tags">
+                        <span class="tag">Arduino</span>
+                        <span class="tag">C++</span>
+                    </div>
                     <h3>Consola Retro con Arduino</h3>
-                    <p>Desarrollo de videojuegos clásicos (Snake, Pong) utilizando una placa Arduino y una pantalla LCD Keypad Shield 1602. Integración de lógica de colisiones, control mediante botones físicos y gestión de memoria del microcontrolador.</p>
+                    <p>Desarrollo de videojuegos clásicos como Flappy Bird, Snake y sistemas RPG en consola utilizando una placa Arduino integrada con una pantalla LCD Keypad Shield 1602. Gestión completa de lógica de colisiones y memoria.</p>
                 </div>
             </div>
 
-            <!-- Proyecto 2: Servidor -->
-            <div class="project-card">
-                <div class="project-img-placeholder">
-                    🖥️
-                </div>
+            <div class="card-glass project-card">
+                <div class="project-img-placeholder">🖥️</div>
                 <div class="project-content">
-                    <span class="tag">Windows Server</span>
-                    <span class="tag">Redes</span>
+                    <div class="tags">
+                        <span class="tag">Windows Server</span>
+                        <span class="tag">IIS</span>
+                    </div>
                     <h3>Infraestructura de Servidor Local</h3>
-                    <p>Implementación de un Windows Server Datacenter actuando como servidor web (IIS) para alojar esta misma página, simultáneamente configurado como servidor de almacenamiento NAS para la gestión documental de la especialidad.</p>
+                    <p>Implementación de un Windows Server Datacenter actuando como servidor web (IIS) para alojar sitios en red local, configurado simultáneamente como servidor de almacenamiento NAS para la gestión documental de la especialidad.</p>
+                </div>
+            </div>
+
+            <div class="card-glass project-card">
+                <div class="project-img-placeholder">📡</div>
+                <div class="project-content">
+                    <div class="tags">
+                        <span class="tag">Cisco</span>
+                        <span class="tag">Redes IPv6</span>
+                    </div>
+                    <h3>Enrutamiento y Configuración de Red</h3>
+                    <p>Administración de topologías de red empresariales. Implementación de protocolos de comunicación seguros y despliegue de direccionamiento IPv6 directamente sobre la interfaz de línea de comandos de switches y routers Cisco.</p>
+                </div>
+            </div>
+
+            <div class="card-glass project-card">
+                <div class="project-img-placeholder">🍓</div>
+                <div class="project-content">
+                    <div class="tags">
+                        <span class="tag">Raspberry Pi</span>
+                        <span class="tag">Linux (DietPi)</span>
+                    </div>
+                    <h3>Servidor Linux de Bajo Consumo</h3>
+                    <p>Despliegue de un entorno de servidor eficiente utilizando hardware Raspberry Pi con el sistema operativo DietPi. Configuración de la terminal para alojar aplicaciones locales y experimentación con plataformas de IA como Ollama.</p>
                 </div>
             </div>
 
         </div>
     </section>
 
-    <footer>
-        <p>&copy; 2026 Especialidad de Informática - CTP La Suiza. Innovación constante.</p>
-    </footer>
-
     <!-- ================= SCRIPTS ================= -->
     <script>
-        // 1. CAMBIO DE COLOR EN LA BARRA DE NAVEGACIÓN AL HACER SCROLL
-        const navbar = document.getElementById('navbar');
-        window.addEventListener('scroll', () => {
-            if (window.scrollY > 50) {
-                navbar.classList.add('scrolled');
-            } else {
-                navbar.classList.remove('scrolled');
-            }
+        // 1. SISTEMA DE NAVEGACIÓN TIPO SPA (Single Page Application)
+        const navButtons = document.querySelectorAll('.nav-btn');
+        const pages = document.querySelectorAll('.page-view');
+
+        navButtons.forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.preventDefault();
+                const targetId = btn.getAttribute('data-target');
+
+                // Quitar la clase activa de los enlaces del nav
+                document.querySelectorAll('.nav-links .nav-btn').forEach(nav => {
+                    nav.classList.remove('active-link');
+                });
+                
+                // Si el botón clicado está en el nav, marcarlo como activo
+                if(btn.parentElement.classList.contains('nav-links')) {
+                    btn.classList.add('active-link');
+                } else {
+                    // Si el clic viene del botón del inicio, marcar "Áreas" en el nav
+                    document.querySelector('.nav-links [data-target="areas"]').classList.add('active-link');
+                }
+
+                // Ocultar todas las páginas y mostrar solo la seleccionada
+                pages.forEach(page => {
+                    page.classList.remove('active-view');
+                    if(page.id === targetId) {
+                        // Pequeño timeout para reiniciar la animación
+                        setTimeout(() => {
+                            page.classList.add('active-view');
+                        }, 50);
+                    }
+                });
+            });
         });
 
-        // 2. ANIMACIÓN "REVEAL" AL HACER SCROLL (Fade In de secciones)
-        const reveals = document.querySelectorAll('.reveal');
-        function checkReveal() {
-            const windowHeight = window.innerHeight;
-            const revealPoint = 150; // Qué tan pronto aparece el elemento
-            
-            reveals.forEach(reveal => {
-                const revealTop = reveal.getBoundingClientRect().top;
-                if (revealTop < windowHeight - revealPoint) {
-                    reveal.classList.add('active');
-                }
-            });
-        }
-        window.addEventListener('scroll', checkReveal);
-        checkReveal(); // Comprobar estado inicial
-
-        // 3. FONDO DE PARTÍCULAS INTERACTIVAS (CANVAS HTML5)
+        // 2. FONDO DE PARTÍCULAS INTERACTIVAS (Optimizadas)
         const canvas = document.getElementById('canvas-bg');
         const ctx = canvas.getContext('2d');
-        let particlesArray;
+        let particlesArray = [];
+        let mouse = { x: null, y: null, radius: 100 };
 
-        // Ajustar tamaño del canvas a la pantalla
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
-        window.addEventListener('resize', () => {
+        window.addEventListener('mousemove', (event) => {
+            mouse.x = event.x;
+            mouse.y = event.y;
+        });
+
+        function resizeCanvas() {
             canvas.width = window.innerWidth;
             canvas.height = window.innerHeight;
             init();
-        });
+        }
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
 
-        // Crear objeto Partícula
         class Particle {
             constructor(x, y, directionX, directionY, size, color) {
                 this.x = x; this.y = y;
                 this.directionX = directionX; this.directionY = directionY;
                 this.size = size; this.color = color;
             }
-            // Dibujar la partícula
             draw() {
                 ctx.beginPath();
                 ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2, false);
                 ctx.fillStyle = this.color;
                 ctx.fill();
             }
-            // Mover la partícula y rebotar en los bordes
             update() {
                 if (this.x > canvas.width || this.x < 0) this.directionX = -this.directionX;
                 if (this.y > canvas.height || this.y < 0) this.directionY = -this.directionY;
+                
+                // Interactividad ligera con el ratón
+                let dx = mouse.x - this.x;
+                let dy = mouse.y - this.y;
+                let distance = Math.sqrt(dx * dx + dy * dy);
+                if (distance < mouse.radius) {
+                    this.x -= dx * 0.02;
+                    this.y -= dy * 0.02;
+                }
+
                 this.x += this.directionX;
                 this.y += this.directionY;
                 this.draw();
             }
         }
 
-        // Llenar el arreglo con partículas
         function init() {
             particlesArray = [];
             let numberOfParticles = (canvas.height * canvas.width) / 9000;
@@ -426,12 +469,10 @@
                 let y = (Math.random() * ((innerHeight - size * 2) - (size * 2)) + size * 2);
                 let directionX = (Math.random() * 1) - 0.5;
                 let directionY = (Math.random() * 1) - 0.5;
-                let color = 'rgba(0, 210, 255, 0.5)';
-                particlesArray.push(new Particle(x, y, directionX, directionY, size, color));
+                particlesArray.push(new Particle(x, y, directionX, directionY, size, 'rgba(0, 210, 255, 0.6)'));
             }
         }
 
-        // Conectar las partículas con líneas si están cerca
         function connect() {
             let opacityValue = 1;
             for (let a = 0; a < particlesArray.length; a++) {
@@ -451,7 +492,6 @@
             }
         }
 
-        // Bucle de animación
         function animate() {
             requestAnimationFrame(animate);
             ctx.clearRect(0, 0, innerWidth, innerHeight);
@@ -460,8 +500,6 @@
             }
             connect();
         }
-
-        init();
         animate();
     </script>
 </body>
