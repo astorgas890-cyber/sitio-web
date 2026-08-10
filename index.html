@@ -9,7 +9,6 @@
         :root {
             --primary: #00d2ff;
             --secondary: #3a7bd5;
-            --accent: #ff007f;
             --dark: #070b14;
             --dark-card: rgba(30, 41, 59, 0.6);
             --text-light: #f8fafc;
@@ -26,7 +25,7 @@
             min-height: 100vh;
         }
 
-        /* ================= FONDO ANIMADO ================= */
+        /* ================= FONDO ANIMADO ORIGINAL ================= */
         #canvas-bg {
             position: fixed;
             top: 0;
@@ -34,7 +33,7 @@
             width: 100vw;
             height: 100vh;
             z-index: -1;
-            opacity: 0.4;
+            opacity: 0.3; /* Opacidad original restaurada */
         }
 
         /* ================= BARRA DE NAVEGACIÓN ================= */
@@ -74,7 +73,6 @@
         }
         .nav-links a:hover, .nav-links a.active-link { color: white; }
         
-        /* Línea animada bajo los enlaces */
         .nav-links a::after {
             content: '';
             position: absolute;
@@ -88,11 +86,11 @@
         }
         .nav-links a:hover::after, .nav-links a.active-link::after { width: 100%; }
 
-        /* ================= SISTEMA DE PÁGINAS (VISTAS) ================= */
+        /* ================= SISTEMA DE PÁGINAS (VISTAS SEPARADAS) ================= */
         .page-view {
-            display: none; /* Oculto por defecto */
+            display: none; 
             opacity: 0;
-            padding-top: 80px; /* Espacio para el navbar */
+            padding-top: 80px; 
             min-height: 100vh;
             animation: fadeView 0.5s forwards ease-out;
         }
@@ -117,21 +115,24 @@
             padding: 0 1rem;
             background: radial-gradient(circle at center, rgba(58, 123, 213, 0.15) 0%, transparent 60%);
         }
-        .hero h1 {
+        
+        #inicio.active-view h1 {
             font-size: 4.5rem;
             margin-bottom: 1rem;
             background: linear-gradient(135deg, #ffffff 0%, var(--primary) 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             text-shadow: 0px 0px 20px rgba(0, 210, 255, 0.2);
+            animation: fadeInDown 1s ease-out;
         }
-        .hero p {
+        #inicio.active-view p {
             font-size: 1.3rem;
             color: var(--text-muted);
             max-width: 650px;
             margin-bottom: 2.5rem;
+            animation: fadeInUp 1s ease-out 0.3s both;
         }
-        .btn-main {
+        #inicio.active-view .btn-main {
             display: inline-block;
             padding: 1rem 2.5rem;
             background: linear-gradient(45deg, var(--secondary), var(--primary));
@@ -144,10 +145,25 @@
             border: none;
             transition: all 0.3s ease;
             box-shadow: 0 4px 15px rgba(0, 210, 255, 0.2);
+            animation: fadeIn 1s ease-out 0.6s both;
         }
+        
         .btn-main:hover {
             transform: translateY(-3px) scale(1.05);
             box-shadow: 0 10px 25px rgba(0, 210, 255, 0.4);
+        }
+
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
         }
 
         /* ================= SECCIONES Y CONTENEDORES ================= */
@@ -254,7 +270,7 @@
 </head>
 <body>
 
-    <!-- Fondo interactivo -->
+    <!-- Fondo de partículas original -->
     <canvas id="canvas-bg"></canvas>
 
     <!-- Barra de Navegación -->
@@ -384,24 +400,19 @@
                 e.preventDefault();
                 const targetId = btn.getAttribute('data-target');
 
-                // Quitar la clase activa de los enlaces del nav
                 document.querySelectorAll('.nav-links .nav-btn').forEach(nav => {
                     nav.classList.remove('active-link');
                 });
                 
-                // Si el botón clicado está en el nav, marcarlo como activo
                 if(btn.parentElement.classList.contains('nav-links')) {
                     btn.classList.add('active-link');
                 } else {
-                    // Si el clic viene del botón del inicio, marcar "Áreas" en el nav
                     document.querySelector('.nav-links [data-target="areas"]').classList.add('active-link');
                 }
 
-                // Ocultar todas las páginas y mostrar solo la seleccionada
                 pages.forEach(page => {
                     page.classList.remove('active-view');
                     if(page.id === targetId) {
-                        // Pequeño timeout para reiniciar la animación
                         setTimeout(() => {
                             page.classList.add('active-view');
                         }, 50);
@@ -410,56 +421,45 @@
             });
         });
 
-        // 2. FONDO DE PARTÍCULAS INTERACTIVAS (Optimizadas)
+        // 2. FONDO DE PARTÍCULAS INTERACTIVAS (CANVAS HTML5 ORIGINAL)
         const canvas = document.getElementById('canvas-bg');
         const ctx = canvas.getContext('2d');
-        let particlesArray = [];
-        let mouse = { x: null, y: null, radius: 100 };
+        let particlesArray;
 
-        window.addEventListener('mousemove', (event) => {
-            mouse.x = event.x;
-            mouse.y = event.y;
-        });
-
-        function resizeCanvas() {
+        // Ajustar tamaño del canvas a la pantalla
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+        window.addEventListener('resize', () => {
             canvas.width = window.innerWidth;
             canvas.height = window.innerHeight;
             init();
-        }
-        window.addEventListener('resize', resizeCanvas);
-        resizeCanvas();
+        });
 
+        // Crear objeto Partícula
         class Particle {
             constructor(x, y, directionX, directionY, size, color) {
                 this.x = x; this.y = y;
                 this.directionX = directionX; this.directionY = directionY;
                 this.size = size; this.color = color;
             }
+            // Dibujar la partícula
             draw() {
                 ctx.beginPath();
                 ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2, false);
                 ctx.fillStyle = this.color;
                 ctx.fill();
             }
+            // Mover la partícula y rebotar en los bordes
             update() {
                 if (this.x > canvas.width || this.x < 0) this.directionX = -this.directionX;
                 if (this.y > canvas.height || this.y < 0) this.directionY = -this.directionY;
-                
-                // Interactividad ligera con el ratón
-                let dx = mouse.x - this.x;
-                let dy = mouse.y - this.y;
-                let distance = Math.sqrt(dx * dx + dy * dy);
-                if (distance < mouse.radius) {
-                    this.x -= dx * 0.02;
-                    this.y -= dy * 0.02;
-                }
-
                 this.x += this.directionX;
                 this.y += this.directionY;
                 this.draw();
             }
         }
 
+        // Llenar el arreglo con partículas
         function init() {
             particlesArray = [];
             let numberOfParticles = (canvas.height * canvas.width) / 9000;
@@ -469,10 +469,12 @@
                 let y = (Math.random() * ((innerHeight - size * 2) - (size * 2)) + size * 2);
                 let directionX = (Math.random() * 1) - 0.5;
                 let directionY = (Math.random() * 1) - 0.5;
-                particlesArray.push(new Particle(x, y, directionX, directionY, size, 'rgba(0, 210, 255, 0.6)'));
+                let color = 'rgba(0, 210, 255, 0.5)';
+                particlesArray.push(new Particle(x, y, directionX, directionY, size, color));
             }
         }
 
+        // Conectar las partículas con líneas si están cerca
         function connect() {
             let opacityValue = 1;
             for (let a = 0; a < particlesArray.length; a++) {
@@ -492,6 +494,7 @@
             }
         }
 
+        // Bucle de animación
         function animate() {
             requestAnimationFrame(animate);
             ctx.clearRect(0, 0, innerWidth, innerHeight);
@@ -500,6 +503,8 @@
             }
             connect();
         }
+
+        init();
         animate();
     </script>
 </body>
