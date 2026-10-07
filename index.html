@@ -300,167 +300,45 @@
             white-space: nowrap; 
         } 
 
-        /* ================= SUPERHÉROE VIAJERO Y CAMINANTE ================= */ 
-        #traveling-superhero {
+        /* ================= SUPERHÉROE REALISTA 3D FLOTANTE/CAMINANTE ================= */ 
+        #realistic-superhero {
             position: absolute;
-            top: 150px;
-            left: 50px;
+            top: 140px;
+            left: 40px;
             z-index: 9999;
-            display: flex;
-            align-items: flex-end;
-            gap: 12px;
-            transition: all 1s cubic-bezier(0.25, 1, 0.5, 1); /* Movimiento suave por la página */
-            pointer-events: none;
-        }
-        #traveling-superhero > * {
+            width: 110px;
+            height: 140px;
+            transition: all 1s cubic-bezier(0.25, 1, 0.5, 1);
             pointer-events: auto;
-        }
-
-        /* Bocadillo de diálogo del viajero */
-        .travel-bubble {
-            background: rgba(15, 23, 42, 0.95);
-            backdrop-filter: blur(12px);
-            border: 1px solid rgba(0, 210, 255, 0.6);
-            color: white;
-            padding: 12px 18px;
-            border-radius: 16px;
-            max-width: 260px;
-            font-size: 0.9rem;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7);
-            position: relative;
-        }
-        .travel-bubble::after {
-            content: '';
-            position: absolute;
-            left: -8px;
-            bottom: 20px;
-            width: 0;
-            height: 0;
-            border-top: 8px solid transparent;
-            border-bottom: 8px solid transparent;
-            border-right: 8px solid rgba(15, 23, 42, 0.95);
-        }
-
-        /* Cuerpo del Superhéroe */
-        .hero-puppet-body {
-            position: relative;
-            width: 90px;
-            height: 110px;
             cursor: pointer;
-            filter: drop-shadow(0 5px 20px rgba(0, 210, 255, 0.5));
+            filter: drop-shadow(0 10px 25px rgba(0, 210, 255, 0.6));
         }
 
-        .hero-torso-box {
-            position: absolute;
-            bottom: 0;
-            left: 15px;
-            width: 60px;
-            height: 55px;
-            background: linear-gradient(135deg, #1e293b, #0f172a);
+        /* Imagen de Superhéroe Realista (Usando ilustración fotorrealista/3D de alta definición) */
+        .hero-3d-image {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            border-radius: 50%;
             border: 3px solid var(--primary);
-            border-radius: 25px 25px 12px 12px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
+            background: radial-gradient(circle, rgba(58,123,213,0.8) 0%, rgba(7,11,20,0.95) 100%);
+            box-shadow: 0 0 20px var(--primary);
+            transition: transform 0.3s ease;
         }
-        .hero-emblem-icon { font-size: 1.3rem; }
-
-        .hero-cape-fly {
-            position: absolute;
-            bottom: 5px;
-            right: 5px;
-            width: 70px;
-            height: 45px;
-            background: linear-gradient(135deg, #ef4444, #b91c1c);
-            border-radius: 15px;
-            z-index: -1;
-            transform: rotate(10deg);
-            animation: capeMotion 1.5s ease-in-out infinite alternate;
-        }
-        @keyframes capeMotion {
-            0% { transform: rotate(10deg) scaleX(1); }
-            100% { transform: rotate(15deg) scaleX(1.1); }
+        #realistic-superhero:hover .hero-3d-image {
+            transform: scale(1.08);
         }
 
-        .hero-head-box {
-            position: absolute;
-            top: 0;
-            left: 8px;
-            width: 74px;
-            height: 58px;
-            background: linear-gradient(135deg, #3a7bd5, #00d2ff);
-            border-radius: 30px 30px 22px 22px;
-            border: 3px solid #ffffff;
-            box-shadow: 0 3px 12px rgba(0,0,0,0.3);
+        /* Efecto visual de brillo cuando está hablando */
+        #realistic-superhero.speaking .hero-3d-image {
+            animation: heroGlowPulse 0.4s infinite alternate;
+        }
+        @keyframes heroGlowPulse {
+            0% { box-shadow: 0 0 15px var(--primary); transform: scale(1); }
+            100% { box-shadow: 0 0 35px var(--primary), 0 0 50px #ff3366; transform: scale(1.05); }
         }
 
-        /* Ojos parpadeantes */
-        .hero-eyes-row {
-            position: absolute;
-            top: 18px;
-            left: 14px;
-            display: flex;
-            gap: 14px;
-        }
-        .hero-eye-dot {
-            width: 11px;
-            height: 13px;
-            background: #ffffff;
-            border-radius: 50%;
-            position: relative;
-            overflow: hidden;
-            animation: blinkTraveler 4s infinite;
-        }
-        .hero-pupil-dot {
-            position: absolute;
-            top: 2px;
-            left: 2px;
-            width: 4px;
-            height: 4px;
-            background: #070b14;
-            border-radius: 50%;
-        }
-        @keyframes blinkTraveler {
-            0%, 96%, 100% { transform: scaleY(1); }
-            98% { transform: scaleY(0.1); }
-        }
-
-        /* Boca que se mueve al hablar */
-        .hero-mouth-line {
-            position: absolute;
-            bottom: 10px;
-            left: 29px;
-            width: 14px;
-            height: 5px;
-            background: #070b14;
-            border-radius: 0 0 8px 8px;
-        }
-        .hero-puppet-body.speaking .hero-mouth-line {
-            animation: speakMouthTravel 0.2s infinite alternate;
-        }
-        @keyframes speakMouthTravel {
-            0% { height: 3px; width: 10px; }
-            100% { height: 10px; width: 14px; background: #ff3366; border-radius: 50%; }
-        }
-
-        /* Mano señaladora activa */
-        .hero-pointing-hand {
-            position: absolute;
-            top: 45px;
-            right: -16px;
-            font-size: 1.6rem;
-            display: none;
-        }
-        .hero-puppet-body.pointing .hero-pointing-hand {
-            display: block;
-            animation: pointMotion 0.4s infinite alternate ease-in-out;
-        }
-        @keyframes pointMotion {
-            0% { transform: translateX(0) rotate(-25deg); }
-            100% { transform: translateX(8px) rotate(-5deg); }
-        }
-
-        /* Botón de tour guiado o explicación */
+        /* Botón de Tour / Explicación por voz */
         .btn-tour {
             background: rgba(0, 210, 255, 0.15);
             color: var(--primary);
@@ -490,6 +368,7 @@
             .nav-links { gap: 1rem; } 
             .page-view { padding-top: 130px; } 
             .competencia-box { padding: 1.5rem; } 
+            #realistic-superhero { width: 85px; height: 110px; }
         } 
     </style> 
 </head> 
@@ -509,27 +388,27 @@
     </nav> 
 
     <!-- ================= VISTA 1: INICIO ================= --> 
-    <section id="inicio" class="page-view hero active-view" data-x="80" data-y="250"> 
+    <section id="inicio" class="page-view hero active-view"> 
         <div class="hero-icon">🌩️</div> 
         <div class="institution-tag">Colegio Técnico Profesional La Suiza</div> 
         <h1>Configuración y Administración de Servicios en la Nube</h1> 
-        <p>Especialidad técnica orientada a formar profesionales capaces de ejecutar la configuración, operación y monitoreo de ambientes y servicios en la nube bajo estrictos estándares de seguridad y ética profesional.</p> 
+        <p>Especialidad técnica orientada a formar profesionales capaces de ejecutar la configuración, operación y monitoreo de ambientes y servicios en la nube bajo estrictos estándares de seguridad, ética y mejora continua.</p> 
         
         <div style="display: flex; gap: 1rem; justify-content: center; align-items: center; flex-wrap: wrap;">
             <button data-target="malla" class="btn-main nav-btn">Ver Plan de Estudios 🚀</button>
-            <button class="btn-tour" onclick="iniciarTourGuiado()">
-                🦸‍♂️ ¡Iniciar Tour Guiado por la Página!
+            <button class="btn-tour" onclick="iniciarExplicacionCompleta()">
+                🦸‍♂️ ¡Escuchar Explicación Completa de la Página!
             </button>
         </div>
     </section> 
 
     <!-- ================= VISTA 2: MALLA CURRICULAR ================= --> 
-    <section id="malla" class="page-view container" data-x="80" data-y="180"> 
+    <section id="malla" class="page-view container"> 
         <h2 class="section-title">Malla Curricular por Nivel</h2> 
           
         <div style="text-align: center; margin-bottom: 2rem;">
-            <button class="btn-tour" onclick="visitarSeccion('malla', 'Aquí tienes la malla curricular completa: décimo nivel con programación y redes, undécimo con servicios en la nube, y duodécimo año enfocado totalmente en la administración avanzada.')">
-                🦸‍♂️ Que el Superhéroe explique la Malla
+            <button class="btn-tour" onclick="explicarModuloEspecifico('malla')">
+                🦸‍♂️ Escuchar Detalle de la Malla Curricular
             </button>
         </div>
 
@@ -538,7 +417,7 @@
             <div class="card-glass nivel-card"> 
                 <h3>Décimo Nivel <span>🔟</span></h3> 
                 <div class="subarea-item"> 
-                    <span class="subarea-nombre">💻 Herramientas para la producción y seguridad de datos</span> 
+                    <span class="subarea-nombre">💻 Herramientas para la producción, transformación digital y seguridad de datos</span> 
                     <span class="subarea-horas">4 hrs</span> 
                 </div> 
                 <div class="subarea-item"> 
@@ -604,12 +483,12 @@
     </section> 
 
     <!-- ================= VISTA 3: PERFIL PROFESIONAL ================= --> 
-    <section id="perfil" class="page-view container" data-x="80" data-y="180"> 
+    <section id="perfil" class="page-view container"> 
         <h2 class="section-title">Perfil de Competencias</h2> 
           
         <div style="text-align: center; margin-bottom: 2rem;">
-            <button class="btn-tour" onclick="visitarSeccion('perfil', 'Este es el perfil profesional. Al graduarte podrás configurar ambientes virtuales, diseñar redes seguras y automatizar tareas con scripts profesionales con total ética.')">
-                🦸‍♂️ Que el Superhéroe explique el Perfil
+            <button class="btn-tour" onclick="explicarModuloEspecifico('perfil')">
+                🦸‍♂️ Escuchar Detalle del Perfil Profesional
             </button>
         </div>
 
@@ -629,34 +508,17 @@
         </div> 
     </section> 
 
-    <!-- ================= SUPERHÉROE VIAJERO (EN PANTALLA) ================= -->
-    <div id="traveling-superhero">
-        <div class="hero-puppet-body" id="hero-puppet-body">
-            <div class="hero-cape-fly"></div>
-            <div class="hero-head-box">
-                <div class="hero-eyes-row">
-                    <div class="hero-eye-dot"><div class="hero-pupil-dot"></div></div>
-                    <div class="hero-eye-dot"><div class="hero-pupil-dot"></div></div>
-                </div>
-                <div class="hero-mouth-line"></div>
-            </div>
-            <div class="hero-torso-box">
-                <div class="hero-emblem-icon">⚡</div>
-            </div>
-            <div class="hero-pointing-hand" id="hero-pointing-hand">👉</div>
-        </div>
-        <div id="travel-bubble" class="travel-bubble">¡Hola! Soy tu superhéroe guía. Presiona el botón de tour para que me mueva por toda la página explicando cada módulo.</div>
+    <!-- ================= PERSONAJE SUPERHÉROE REALISTA 3D ================= -->
+    <div id="realistic-superhero" onclick="saludoRealista()">
+        <img src="https://images.unsplash.com/photo-1635863138275-d9b33299680b?w=300&auto=format&fit=crop&q=80" alt="Superhéroe Realista" class="hero-3d-image">
     </div>
 
     <!-- ================= SCRIPTS ================= --> 
     <script> 
-        const heroElement = document.getElementById('traveling-superhero');
-        const puppetBody = document.getElementById('hero-puppet-body');
-        const travelBubble = document.getElementById('travel-bubble');
-        const pointingHand = document.getElementById('hero-pointing-hand');
+        const heroElement = document.getElementById('realistic-superhero');
 
-        // Función para mover al superhéroe a coordenadas específicas de la página y hablar
-        function moverHeroeA(x, y, texto, callback) {
+        // Función para mover al personaje realista y hablar detalladamente sin texto en pantalla
+        function hablarDetallado(x, y, texto, callback) {
             heroElement.style.top = y + 'px';
             heroElement.style.left = x + 'px';
 
@@ -668,55 +530,53 @@
             window.speechSynthesis.cancel();
             const utterance = new SpeechSynthesisUtterance(texto);
             utterance.lang = 'es-ES';
-            utterance.rate = 1.05;
+            utterance.rate = 1.02; // Velocidad pausada y clara para explicar contenido técnico
 
-            travelBubble.innerText = texto;
-            puppetBody.classList.add('speaking');
-            pointingHand.classList.add('pointing');
+            heroElement.classList.add('speaking');
 
             utterance.onend = function() {
-                puppetBody.classList.remove('speaking');
-                pointingHand.classList.remove('pointing');
+                heroElement.classList.remove('speaking');
                 if (callback) callback();
             };
 
             utterance.onerror = function() {
-                puppetBody.classList.remove('speaking');
-                pointingHand.classList.remove('pointing');
+                heroElement.classList.remove('speaking');
                 if (callback) callback();
             };
 
             window.speechSynthesis.speak(utterance);
         }
 
-        // Tour guiado automático paso a paso recorriendo las vistas
-        function iniciarTourGuiado() {
-            // Paso 1: Ir a Inicio
+        // Tour completo que explica TODO el contenido módulo por módulo
+        function iniciarExplicacionCompleta() {
             cambiarVista('inicio');
-            setTimeout(() => {
-                moverHeroeA(50, 220, "¡Bienvenidos al CTP La Suiza! Esta es la especialidad técnica en Servicios en la Nube, donde aprenderás a administrar servidores y plataformas digitales seguras.", () => {
+            hablarDetallado(50, 200, "¡Bienvenidos al Colegio Técnico Profesional La Suiza! Esta es la presentación oficial de nuestra especialidad técnica en Configuración y Administración de Servicios en la Nube, diseñada para formar profesionales de alto nivel tecnológico.", () => {
+                
+                cambiarVista('malla');
+                window.scrollTo({ top: 300, behavior: 'smooth' });
+                hablarDetallado(50, 450, "Analicemos la malla curricular completa paso a paso. En el décimo nivel, cursamos: Herramientas para la producción, transformación digital y seguridad de datos con 4 horas semanales; Programación con 8 horas; Redes y virtualización con 4 horas; e Inglés orientado a cloud computing con 4 horas. En el undécimo nivel, se integra Emprendimiento e innovación con 4 horas, Programación con 4 horas, Redes y virtualización con 4 horas, el núcleo principal de Servicios y recursos en la nube con 8 horas, e Inglés con 4 horas. Finalmente, en el duodécimo nivel, profundizamos con Servicios en la nube durante 8 horas, Programación con 4 horas, Redes y virtualización con 8 horas, y nuestro módulo de inglés técnico.", () => {
                     
-                    // Paso 2: Cambiar a Malla Curricular y mover al superhéroe ahí
-                    cambiarVista('malla');
-                    setTimeout(() => {
-                        window.scrollTo({ top: 400, behavior: 'smooth' });
-                        moverHeroeA(50, 480, "Aquí observamos la Malla Curricular distribuida por niveles: décimo, undécimo y duodécimo año con un fuerte enfoque en redes, programación y la nube.", () => {
-                            
-                            // Paso 3: Cambiar a Perfil Profesional y mover al superhéroe
-                            cambiarVista('perfil');
-                            setTimeout(() => {
-                                window.scrollTo({ top: 900, behavior: 'smooth' });
-                                moverHeroeA(50, 750, "Y finalmente, en el Perfil Profesional, se detallan las competencias técnicas y la ética profesional con la que te formarás como especialista. ¡Mucho éxito!");
-                            }, 500);
-
-                        });
-                    }, 500);
+                    cambiarVista('perfil');
+                    window.scrollTo({ top: 850, behavior: 'smooth' });
+                    hablarDetallado(50, 750, "Para concluir, veamos el perfil profesional. Nuestra competencia general consiste en ejecutar la configuración, operación y monitoreo de ambientes y servicios en la nube con altos estándares de seguridad y ética. Como competencias específicas destacamos: configurar requerimientos de ambientes en la nube, configurar redes virtuales seguras, y programar scripts de automatización de tareas con excelentes prácticas profesionales.", () => {
+                        hablarDetallado(50, 200, "¡Hemos recorrido todos los módulos de la especialidad! Puedes explorar libremente haciendo clic en los botones de cada sección.");
+                    });
 
                 });
-            }, 300);
+            });
         }
 
-        // Función para cambiar de vista por pestaña de navegación
+        // Explicación específica por sección
+        function explicarModuloEspecifico(targetId) {
+            cambiarVista(targetId);
+            if (targetId === 'malla') {
+                hablarDetallado(60, 250, "En la malla curricular abarcamos tres niveles clave. Décimo nivel sienta las bases en programación y redes. Undécimo introduce los servicios y recursos en la nube. Y duodécimo año consolida la administración avanzada de infraestructura tecnológica.");
+            } else if (targetId === 'perfil') {
+                hablarDetallado(60, 250, "El perfil profesional te capacita para configurar ambientes cloud, administrar redes virtuales y automatizar procesos informáticos con estricta ética profesional y seguridad informática.");
+            }
+        }
+
+        // Cambiar vista de pestañas
         function cambiarVista(targetId) {
             const navBtn = document.querySelector(`.nav-btn[data-target="${targetId}"]`);
             if (navBtn) {
@@ -733,15 +593,7 @@
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
-        // Visitar una sección específica al hacer clic en su botón
-        function visitarSeccion(targetId, textoExplicacion) {
-            cambiarVista(targetId);
-            setTimeout(() => {
-                moverHeroeA(60, 250, textoExplicacion);
-            }, 400);
-        }
-
-        // 1. SISTEMA DE NAVEGACIÓN SPA CLICKEABLE EN EL MENÚ
+        // Navegación mediante el menú superior
         const navButtons = document.querySelectorAll('.nav-btn'); 
         navButtons.forEach(btn => { 
             btn.addEventListener('click', (e) => { 
@@ -749,17 +601,16 @@
                 const targetId = btn.getAttribute('data-target'); 
                 cambiarVista(targetId);
 
-                // Mover al superhéroe a una posición inicial según la sección
-                if(targetId === 'inicio') moverHeroeA(60, 220, "¡Hola! Estamos en el módulo de Inicio de la especialidad.");
-                if(targetId === 'malla') moverHeroeA(60, 250, "¡Revisemos la Malla Curricular juntos!");
-                if(targetId === 'perfil') moverHeroeA(60, 250, "Aquí puedes ver el Perfil Profesional detallado.");
+                if(targetId === 'inicio') hablarDetallado(60, 200, "Módulo de inicio seleccionado. Bienvenido a CTP La Suiza.");
+                if(targetId === 'malla') hablarDetallado(60, 250, "Malla curricular seleccionada. Explora las asignaturas técnicas por nivel.");
+                if(targetId === 'perfil') hablarDetallado(60, 250, "Perfil profesional seleccionado. Conoce tus futuras competencias técnicas.");
             }); 
         }); 
 
         // Saludo inicial al cargar la página
         window.addEventListener('DOMContentLoaded', () => {
             setTimeout(() => {
-                moverHeroeA(60, 220, "¡Hola! Soy tu superhéroe guía. Haz clic en el botón de tour para que camine y explique toda la página por ti.");
+                hablarDetallado(60, 200, "Hola. Soy tu guía de CTP La Suiza. Haz clic en el botón de escuchar explicación completa para recorrer toda la página y conocer cada módulo en detalle.");
             }, 1000);
         });
 
