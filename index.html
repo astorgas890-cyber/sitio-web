@@ -15,7 +15,7 @@
             --text-muted: #cbd5e1; 
             --accent-glow: rgba(0, 210, 255, 0.25); 
         } 
-
+ 
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', system-ui, sans-serif; } 
          
         body {  
@@ -24,9 +24,8 @@
             line-height: 1.6;  
             overflow-x: hidden;  
             min-height: 100vh; 
-            position: relative;
         } 
-
+ 
         /* ================= FONDO ANIMADO ================= */ 
         #canvas-bg { 
             position: fixed; 
@@ -37,7 +36,7 @@
             z-index: -1; 
             opacity: 0.25; 
         } 
-
+ 
         /* ================= BARRA DE NAVEGACIÓN ================= */ 
         .navbar { 
             position: fixed; 
@@ -87,12 +86,12 @@
             transform: translateX(-50%); 
         } 
         .nav-links a:hover::after, .nav-links a.active-link::after { width: 100%; } 
-
+ 
         /* ================= SISTEMA DE PÁGINAS (VISTAS) ================= */ 
         .page-view { 
             display: none;  
             opacity: 0; 
-            padding-top: 120px;  
+            padding-top: 100px;  
             min-height: 100vh; 
             animation: fadeView 0.5s forwards ease-out; 
         } 
@@ -102,12 +101,12 @@
         #inicio.active-view { 
             display: flex; 
         } 
-
+ 
         @keyframes fadeView { 
             0% { opacity: 0; transform: translateY(20px) scale(0.98); } 
             100% { opacity: 1; transform: translateY(0) scale(1); } 
         } 
-
+ 
         /* ================= HERO SECTION ================= */ 
         .hero { 
             flex-direction: column; 
@@ -124,12 +123,12 @@
             filter: drop-shadow(0 0 15px rgba(0, 210, 255, 0.4)); 
             animation: floatIcon 3s ease-in-out infinite; 
         } 
-
+ 
         @keyframes floatIcon { 
             0%, 100% { transform: translateY(0); } 
             50% { transform: translateY(-10px); } 
         } 
-
+ 
         #inicio.active-view .institution-tag { 
             font-size: 1.1rem; 
             text-transform: uppercase; 
@@ -138,7 +137,7 @@
             margin-bottom: 1rem; 
             font-weight: 700; 
         } 
-
+ 
         #inicio.active-view h1 { 
             font-size: 3.5rem; 
             max-width: 1000px; 
@@ -175,7 +174,7 @@
             transform: translateY(-3px) scale(1.05); 
             box-shadow: 0 10px 25px rgba(0, 210, 255, 0.4); 
         } 
-
+ 
         /* ================= SECCIONES Y CONTENEDORES ================= */ 
         section { padding: 4rem 2rem 6rem; } 
         .section-title { 
@@ -198,507 +197,7 @@
             background: linear-gradient(90deg, transparent, var(--primary), transparent); 
         } 
         .container { max-width: 1200px; margin: 0 auto; } 
-
+ 
         /* ================= TARJETAS GLASSMORPHISM ================= */ 
         .grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 2.5rem; } 
-         
-        .card-glass { 
-            background-color: var(--dark-card); 
-            backdrop-filter: blur(16px); 
-            -webkit-backdrop-filter: blur(16px); 
-            border-radius: 20px; 
-            border: 1px solid rgba(255,255,255,0.08); 
-            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3); 
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
-            position: relative; 
-            overflow: hidden; 
-            padding: 2.5rem; 
-        } 
-        .card-glass:hover { 
-            transform: translateY(-8px); 
-            border-color: rgba(0, 210, 255, 0.5); 
-            box-shadow: 0 15px 40px rgba(0, 210, 255, 0.15); 
-        } 
-
-        /* ================= COMPETENCIA GENERAL Y PERFIL ================= */ 
-        .competencia-box { 
-            background: linear-gradient(135deg, rgba(30, 41, 59, 0.8), rgba(15, 23, 42, 0.9)); 
-            border-left: 5px solid var(--primary); 
-            padding: 3rem; 
-            border-radius: 16px; 
-            margin-bottom: 3rem; 
-            box-shadow: 0 10px 30px rgba(0,0,0,0.4); 
-            position: relative; 
-        } 
-        .competencia-box::before { 
-            content: '🎯'; 
-            position: absolute; 
-            top: 2rem; 
-            right: 2rem; 
-            font-size: 3rem; 
-            opacity: 0.2; 
-        } 
-        .competencia-box h3 { 
-            font-size: 1.8rem; 
-            color: white; 
-            margin-bottom: 1rem; 
-            display: flex; 
-            align-items: center; 
-            gap: 10px; 
-        } 
-        .competencia-box p { 
-            font-size: 1.15rem; 
-            color: var(--text-muted); 
-            line-height: 1.8; 
-        } 
-
-        .skill-list { list-style: none; margin-top: 1.5rem; } 
-        .skill-list li { margin-bottom: 1rem; display: flex; align-items: flex-start; font-size: 1rem; color: var(--text-muted); } 
-        .skill-list li span.icon-bullet { margin-right: 12px; font-size: 1.2rem; line-height: 1; } 
-
-        /* ================= MALLA CURRICULAR (NIVELES) ================= */ 
-        .nivel-card h3 { 
-            font-size: 1.8rem; 
-            color: var(--primary); 
-            margin-bottom: 1.5rem; 
-            border-bottom: 1px solid rgba(255,255,255,0.1); 
-            padding-bottom: 0.8rem; 
-            display: flex; 
-            justify-content: space-between; 
-            align-items: center; 
-        } 
-        .subarea-item { 
-            display: flex; 
-            justify-content: space-between; 
-            align-items: center; 
-            background: rgba(15, 23, 42, 0.5); 
-            padding: 1rem 1.2rem; 
-            border-radius: 10px; 
-            margin-bottom: 0.8rem; 
-            border: 1px solid rgba(255,255,255,0.03); 
-            transition: background 0.3s; 
-        } 
-        .subarea-item:hover { 
-            background: rgba(0, 210, 255, 0.08); 
-        } 
-        .subarea-nombre { 
-            font-weight: 600; 
-            color: white; 
-            font-size: 0.95rem; 
-            padding-right: 1rem; 
-            display: flex; 
-            align-items: center; 
-            gap: 8px; 
-        } 
-        .subarea-horas { 
-            background: rgba(0, 210, 255, 0.15); 
-            color: var(--primary); 
-            padding: 0.3rem 0.8rem; 
-            border-radius: 20px; 
-            font-size: 0.85rem; 
-            font-weight: bold; 
-            white-space: nowrap; 
-        } 
-
-        /* ================= PERSONAJE 3D DE CUERPO COMPLETO (POSICIONAMIENTO SEGURO) ================= */ 
-        #fullbody-superhero {
-            position: absolute;
-            top: 130px;
-            right: 25px; /* Ubicado en el margen derecho libre para no tapar los contenidos */
-            z-index: 9999;
-            width: 130px;
-            height: 230px; 
-            transition: all 1s cubic-bezier(0.25, 1, 0.5, 1);
-            pointer-events: auto;
-            cursor: pointer;
-            filter: drop-shadow(0 15px 30px rgba(0, 210, 255, 0.6));
-        }
-
-        .hero-full-image {
-            width: 100%;
-            height: 100%;
-            object-fit: contain;
-            filter: drop-shadow(0 0 10px rgba(0, 210, 255, 0.4));
-            transition: transform 0.3s ease;
-        }
-        #fullbody-superhero:hover .hero-full-image {
-            transform: scale(1.05);
-        }
-
-        /* Efecto lumínico cuando está hablando */
-        #fullbody-superhero.speaking .hero-full-image {
-            animation: fullBodyGlow 0.4s infinite alternate;
-        }
-        @keyframes fullBodyGlow {
-            0% { filter: drop-shadow(0 0 15px var(--primary)) brightness(1); transform: scale(1); }
-            100% { filter: drop-shadow(0 0 35px #ff3366) brightness(1.15); transform: scale(1.03); }
-        }
-
-        /* Botón de Tour / Explicación por voz */
-        .btn-tour {
-            background: rgba(0, 210, 255, 0.15);
-            color: var(--primary);
-            border: 1px solid rgba(0, 210, 255, 0.4);
-            padding: 0.6rem 1.2rem;
-            border-radius: 25px;
-            font-weight: 600;
-            font-size: 0.95rem;
-            cursor: pointer;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            margin-top: 1rem;
-            transition: all 0.3s ease;
-        }
-        .btn-tour:hover {
-            background: var(--primary);
-            color: var(--dark);
-            transform: translateY(-3px);
-            box-shadow: 0 6px 15px rgba(0, 210, 255, 0.4);
-        }
-
-        /* ================= RESPONSIVO ================= */ 
-        @media (max-width: 768px) { 
-            .navbar { flex-direction: column; gap: 1rem; padding: 1rem; } 
-            #inicio.active-view h1 { font-size: 2.3rem; } 
-            .nav-links { gap: 1rem; } 
-            .page-view { padding-top: 130px; } 
-            .competencia-box { padding: 1.5rem; } 
-            #fullbody-superhero { width: 90px; height: 160px; right: 10px; }
-        } 
-    </style> 
-</head> 
-<body> 
-
-    <!-- Fondo de partículas --> 
-    <canvas id="canvas-bg"></canvas> 
-
-    <!-- Barra de Navegación --> 
-    <nav class="navbar" id="navbar"> 
-        <div class="logo">☁️ CTP La Suiza - Cloud</div> 
-        <div class="nav-links"> 
-            <a data-target="inicio" class="nav-btn active-link">Inicio</a> 
-            <a data-target="malla" class="nav-btn">Malla Curricular</a> 
-            <a data-target="perfil" class="nav-btn">Perfil Profesional</a> 
-        </div> 
-    </nav> 
-
-    <!-- ================= VISTA 1: INICIO ================= --> 
-    <section id="inicio" class="page-view hero active-view"> 
-        <div class="hero-icon">🌩️</div> 
-        <div class="institution-tag">Colegio Técnico Profesional La Suiza</div> 
-        <h1>Configuración y Administración de Servicios en la Nube</h1> 
-        <p>Especialidad técnica orientada a formar profesionales capaces de ejecutar la configuración, operación y monitoreo de ambientes y servicios en la nube bajo estrictos estándares de seguridad, ética y mejora continua.</p> 
-        
-        <div style="display: flex; gap: 1rem; justify-content: center; align-items: center; flex-wrap: wrap;">
-            <button data-target="malla" class="btn-main nav-btn">Ver Plan de Estudios 🚀</button>
-            <button class="btn-tour" onclick="iniciarExplicacionCompleta()">
-                🦸‍♂️ ¡Escuchar Explicación Completa de la Página!
-            </button>
-        </div>
-    </section> 
-
-    <!-- ================= VISTA 2: MALLA CURRICULAR ================= --> 
-    <section id="malla" class="page-view container"> 
-        <h2 class="section-title">Malla Curricular por Nivel</h2> 
-          
-        <div style="text-align: center; margin-bottom: 2rem;">
-            <button class="btn-tour" onclick="explicarModuloEspecifico('malla')">
-                🦸‍♂️ Escuchar Detalle de la Malla Curricular
-            </button>
-        </div>
-
-        <div class="grid-3"> 
-            <!-- Décimo Nivel --> 
-            <div class="card-glass nivel-card"> 
-                <h3>Décimo Nivel <span>🔟</span></h3> 
-                <div class="subarea-item"> 
-                    <span class="subarea-nombre">💻 Herramientas para la producción, transformación digital y seguridad de datos</span> 
-                    <span class="subarea-horas">4 hrs</span> 
-                </div> 
-                <div class="subarea-item"> 
-                    <span class="subarea-nombre">⚡ Programación</span> 
-                    <span class="subarea-horas">8 hrs</span> 
-                </div> 
-                <div class="subarea-item"> 
-                    <span class="subarea-nombre">🌐 Redes y virtualización</span> 
-                    <span class="subarea-horas">4 hrs</span> 
-                </div> 
-                <div class="subarea-item"> 
-                    <span class="subarea-nombre">🇬🇧 English Oriented to cloud computing</span> 
-                    <span class="subarea-horas">4 hrs</span> 
-                </div> 
-            </div> 
-
-            <!-- Undécimo Nivel --> 
-            <div class="card-glass nivel-card"> 
-                <h3>Undécimo Nivel <span>1️⃣1️⃣</span></h3> 
-                <div class="subarea-item"> 
-                    <span class="subarea-nombre">💡 Emprendimiento e innovación</span> 
-                    <span class="subarea-horas">4 hrs</span> 
-                </div> 
-                <div class="subarea-item"> 
-                    <span class="subarea-nombre">⚡ Programación</span> 
-                    <span class="subarea-horas">4 hrs</span> 
-                </div> 
-                <div class="subarea-item"> 
-                    <span class="subarea-nombre">🌐 Redes y virtualización</span> 
-                    <span class="subarea-horas">4 hrs</span> 
-                </div> 
-                <div class="subarea-item"> 
-                    <span class="subarea-nombre">☁️ Servicios y recursos en la nube</span> 
-                    <span class="subarea-horas">8 hrs</span> 
-                </div> 
-                <div class="subarea-item"> 
-                    <span class="subarea-nombre">🇬🇧 English Oriented to cloud computing</span> 
-                    <span class="subarea-horas">4 hrs</span> 
-                </div> 
-            </div> 
-
-            <!-- Duodécimo Nivel --> 
-            <div class="card-glass nivel-card"> 
-                <h3>Duodécimo Nivel <span>1️⃣2️⃣</span></h3> 
-                <div class="subarea-item"> 
-                    <span class="subarea-nombre">☁️ Servicios en la nube</span> 
-                    <span class="subarea-horas">8 hrs</span> 
-                </div> 
-                <div class="subarea-item"> 
-                    <span class="subarea-nombre">⚡ Programación</span> 
-                    <span class="subarea-horas">4 hrs</span> 
-                </div> 
-                <div class="subarea-item"> 
-                    <span class="subarea-nombre">🌐 Redes y virtualización</span> 
-                    <span class="subarea-horas">8 hrs</span> 
-                </div> 
-                <div class="subarea-item"> 
-                    <span class="subarea-nombre">🇬🇧 English Oriented to cloud computing</span> 
-                    <span class="subarea-horas">4 hrs</span> 
-                </div> 
-            </div> 
-        </div> 
-    </section> 
-
-    <!-- ================= VISTA 3: PERFIL PROFESIONAL ================= --> 
-    <section id="perfil" class="page-view container"> 
-        <h2 class="section-title">Perfil de Competencias</h2> 
-          
-        <div style="text-align: center; margin-bottom: 2rem;">
-            <button class="btn-tour" onclick="explicarModuloEspecifico('perfil')">
-                🦸‍♂️ Escuchar Detalle del Perfil Profesional
-            </button>
-        </div>
-
-        <div class="competencia-box"> 
-            <h3>🛡️ Competencia General</h3> 
-            <p>Ejecutar la configuración, operación y monitoreo de ambientes y servicios en la nube, implementando seguridad, mejores prácticas y mejora continua, conforme instrucciones recibidas, actuando con ética a nivel personal y profesional, participando en equipos de trabajo en la solución de problemas, con comunicación asertiva y promoviendo un ambiente de sana convivencia.</p> 
-        </div> 
-
-        <div class="card-glass"> 
-            <h3 style="color: white; font-size: 1.5rem; margin-bottom: 0.5rem; display: flex; align-items: center; gap: 10px;">📋 Competencias Específicas</h3> 
-            <p style="color: var(--text-muted); margin-bottom: 1.5rem;">Habilidades técnicas clave desarrolladas al concluir la especialidad:</p> 
-            <ul class="skill-list"> 
-                <li><span class="icon-bullet">🔹</span>Configurar requerimientos de ambientes en la nube, según necesidades establecidas y procedimientos de seguridad.</li> 
-                <li><span class="icon-bullet">🔹</span>Configurar redes virtuales, conforme requerimientos establecidos y procedimientos de seguridad.</li> 
-                <li><span class="icon-bullet">🔹</span>Programar scripts de automatización de tareas de configuración en la nube, según requerimientos establecidos, procedimientos de seguridad y buenas prácticas.</li> 
-            </ul> 
-        </div> 
-    </section> 
-
-    <!-- ================= PERSONAJE SUPERHÉROE 3D DE CUERPO COMPLETO ================= -->
-    <div id="fullbody-superhero" onclick="saludoCompleto()">
-        <img src="https://encrypted-tbn3.gstatic.com/licensed-image?q=tbn:ANd9GcQY6fS3eifdnXpWeAWHtrzclHIMoUr_uejtImIutrcKWfSbZJzedI5FLhTFSmhsSjNPjDuKlZZy7lxbJU0" alt="Superhéroe Cuerpo Completo" class="hero-full-image">
-    </div>
-
-    <!-- ================= SCRIPTS ================= --> 
-    <script> 
-        const heroElement = document.getElementById('fullbody-superhero');
-
-        // Función para mover al personaje por los márgenes seguros y hablar sin tapar contenido
-        function hablarDetallado(xSide, y, texto, callback) {
-            // Posicionar de forma inteligente en los márgenes (izquierda o derecha)
-            if (xSide === 'left') {
-                heroElement.style.left = '30px';
-                heroElement.style.right = 'auto';
-            } else {
-                heroElement.style.left = 'auto';
-                heroElement.style.right = '30px';
-            }
-            heroElement.style.top = y + 'px';
-
-            if (!('speechSynthesis' in window)) {
-                if (callback) callback();
-                return;
-            }
-
-            window.speechSynthesis.cancel();
-            const utterance = new SpeechSynthesisUtterance(texto);
-            utterance.lang = 'es-ES';
-            utterance.rate = 1.02; // Velocidad pausada y clara para explicar contenido técnico
-
-            heroElement.classList.add('speaking');
-
-            utterance.onend = function() {
-                heroElement.classList.remove('speaking');
-                if (callback) callback();
-            };
-
-            utterance.onerror = function() {
-                heroElement.classList.remove('speaking');
-                if (callback) callback();
-            };
-
-            window.speechSynthesis.speak(utterance);
-        }
-
-        // Tour completo alternando márgenes izquierdo y derecho para no interferir con las tarjetas
-        function iniciarExplicacionCompleta() {
-            cambiarVista('inicio');
-            hablarDetallado('right', 180, "¡Bienvenidos al Colegio Técnico Profesional La Suiza! Esta es la presentación oficial de nuestra especialidad técnica en Configuración y Administración de Servicios en la Nube, diseñada para formar profesionales de alto nivel tecnológico.", () => {
-                
-                cambiarVista('malla');
-                window.scrollTo({ top: 300, behavior: 'smooth' });
-                hablarDetallado('left', 250, "Analicemos la malla curricular completa paso a paso. En el décimo nivel, cursamos: Herramientas para la producción, transformación digital y seguridad de datos con 4 horas semanales; Programación con 8 horas; Redes y virtualización con 4 horas; e Inglés orientado a cloud computing con 4 horas. En el undécimo nivel, se integra Emprendimiento e innovación con 4 horas, Programación con 4 horas, Redes y virtualización con 4 horas, el núcleo principal de Servicios y recursos en la nube con 8 horas, e Inglés con 4 horas. Finalmente, en el duodécimo nivel, profundizamos con Servicios en la nube durante 8 horas, Programación con 4 horas, Redes y virtualización con 8 horas, y nuestro módulo de inglés técnico.", () => {
-                    
-                    cambiarVista('perfil');
-                    window.scrollTo({ top: 850, behavior: 'smooth' });
-                    hablarDetallado('right', 300, "Para concluir, veamos el perfil profesional. Nuestra competencia general consiste en ejecutar la configuración, operación y monitoreo de ambientes y servicios en la nube con altos estándares de seguridad y ética. Como competencias específicas destacamos: configurar requerimientos de ambientes en la nube, configurar redes virtuales seguras, y programar scripts de automatización de tareas con excelentes prácticas profesionales.", () => {
-                        hablarDetallado('left', 200, "¡Hemos recorrido todos los módulos de la especialidad! Puedes explorar libremente haciendo clic en los botones de cada sección.");
-                    });
-
-                });
-            });
-        }
-
-        // Explicación específica por sección usando márgenes seguros
-        function explicarModuloEspecifico(targetId) {
-            cambiarVista(targetId);
-            if (targetId === 'malla') {
-                hablarDetallado('left', 250, "En la malla curricular abarcamos tres niveles clave. Décimo nivel sienta las bases en programación y redes. Undécimo introduce los servicios y recursos en la nube. Y duodécimo año consolida la administración avanzada de infraestructura tecnológica.");
-            } else if (targetId === 'perfil') {
-                hablarDetallado('right', 250, "El perfil profesional te capacita para configurar ambientes cloud, administrar redes virtuales y automatizar procesos informáticos con estricta ética profesional y seguridad informática.");
-            }
-        }
-
-        function saludoCompleto() {
-            hablarDetallado('right', 180, "¡Hola! Soy tu guía oficial de CTP La Suiza. Haz clic en el botón de escuchar explicación completa para recorrer toda la página y conocer cada módulo en detalle.");
-        }
-
-        // Cambiar vista de pestañas
-        function cambiarVista(targetId) {
-            const navBtn = document.querySelector(`.nav-btn[data-target="${targetId}"]`);
-            if (navBtn) {
-                document.querySelectorAll('.nav-links .nav-btn').forEach(nav => nav.classList.remove('active-link'));
-                navBtn.classList.add('active-link');
-            }
-
-            document.querySelectorAll('.page-view').forEach(page => {
-                page.classList.remove('active-view');
-                if (page.id === targetId) {
-                    page.classList.add('active-view');
-                }
-            });
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
-
-        // Navegación mediante el menú superior
-        const navButtons = document.querySelectorAll('.nav-btn'); 
-        navButtons.forEach(btn => { 
-            btn.addEventListener('click', (e) => { 
-                e.preventDefault(); 
-                const targetId = btn.getAttribute('data-target'); 
-                cambiarVista(targetId);
-
-                if(targetId === 'inicio') hablarDetallado('right', 180, "Módulo de inicio seleccionado. Bienvenido a CTP La Suiza.");
-                if(targetId === 'malla') hablarDetallado('left', 250, "Malla curricular seleccionada. Explora las asignaturas técnicas por nivel.");
-                if(targetId === 'perfil') hablarDetallado('right', 250, "Perfil profesional seleccionado. Conoce tus futuras competencias técnicas.");
-            }); 
-        }); 
-
-        // Saludo inicial al cargar la página
-        window.addEventListener('DOMContentLoaded', () => {
-            setTimeout(() => {
-                hablarDetallado('right', 180, "Hola. Soy tu guía de CTP La Suiza. Haz clic en el botón de escuchar explicación completa para recorrer toda la página y conocer cada módulo en detalle.");
-            }, 1000);
-        });
-
-        // 2. FONDO DE PARTÍCULAS INTERACTIVAS (CANVAS HTML5) 
-        const canvas = document.getElementById('canvas-bg'); 
-        const ctx = canvas.getContext('2d'); 
-        let particlesArray; 
-
-        canvas.width = window.innerWidth; 
-        canvas.height = window.innerHeight; 
-        window.addEventListener('resize', () => { 
-            canvas.width = window.innerWidth; 
-            canvas.height = window.innerHeight; 
-            init(); 
-        }); 
-
-        class Particle { 
-            constructor(x, y, directionX, directionY, size, color) { 
-                this.x = x; this.y = y; 
-                this.directionX = directionX; this.directionY = directionY; 
-                this.size = size; this.color = color; 
-            } 
-            draw() { 
-                ctx.beginPath(); 
-                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2, false); 
-                ctx.fillStyle = this.color; 
-                ctx.fill(); 
-            } 
-            update() { 
-                if (this.x > canvas.width || this.x < 0) this.directionX = -this.directionX; 
-                if (this.y > canvas.height || this.y < 0) this.directionY = -this.directionY; 
-                this.x += this.directionX; 
-                this.y += this.directionY; 
-                this.draw(); 
-            } 
-        } 
-
-        function init() { 
-            particlesArray = []; 
-            let numberOfParticles = (canvas.height * canvas.width) / 9000; 
-            for (let i = 0; i < numberOfParticles; i++) { 
-                let size = (Math.random() * 2) + 1; 
-                let x = (Math.random() * ((innerWidth - size * 2) - (size * 2)) + size * 2); 
-                let y = (Math.random() * ((innerHeight - size * 2) - (size * 2)) + size * 2); 
-                let directionX = (Math.random() * 1) - 0.5; 
-                let directionY = (Math.random() * 1) - 0.5; 
-                let color = 'rgba(0, 210, 255, 0.5)'; 
-                particlesArray.push(new Particle(x, y, directionX, directionY, size, color)); 
-            } 
-        } 
-
-        function connect() { 
-            let opacityValue = 1; 
-            for (let a = 0; a < particlesArray.length; a++) { 
-                for (let b = a; b < particlesArray.length; b++) { 
-                    let distance = ((particlesArray[a].x - particlesArray[b].x) * (particlesArray[a].x - particlesArray[b].x)) +  
-                                   ((particlesArray[a].y - particlesArray[b].y) * (particlesArray[a].y - particlesArray[b].y)); 
-                    if (distance < (canvas.width / 7) * (canvas.height / 7)) { 
-                        opacityValue = 1 - (distance / 20000); 
-                        ctx.strokeStyle = 'rgba(0, 210, 255,' + opacityValue + ')'; 
-                        ctx.lineWidth = 1; 
-                        ctx.beginPath(); 
-                        ctx.moveTo(particlesArray[a].x, particlesArray[a].y); 
-                        ctx.lineTo(particlesArray[b].x, particlesArray[b].y); 
-                        ctx.stroke(); 
-                    } 
-                } 
-            } 
-        } 
-
-        function animate() { 
-            requestAnimationFrame(animate); 
-            ctx.clearRect(0, 0, innerWidth, innerHeight); 
-            for (let i = 0; i < particlesArray.length; i++) { 
-                particlesArray[i].update(); 
-            } 
-            connect(); 
-        } 
-
-        init(); 
-        animate(); 
-    </script> 
-</body> 
-</html>
+        .grid-2 { display: grid; grid-template-columns: repeat(auto
