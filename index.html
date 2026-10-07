@@ -1,544 +1,707 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Servicios en la Nube - CTP La Suiza</title>
-    <style>
-        /* ================= VARIABLES Y RESET ================= */
-        :root {
-            --primary: #00d2ff;
-            --secondary: #3a7bd5;
-            --dark: #070b14;
-            --dark-card: rgba(30, 41, 59, 0.65);
-            --text-light: #f8fafc;
-            --text-muted: #cbd5e1;
-            --accent-glow: rgba(0, 210, 255, 0.25);
-        }
+<!DOCTYPE html> 
+<html lang="es"> 
+<head> 
+    <meta charset="UTF-8"> 
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+    <title>Servicios en la Nube - CTP La Suiza</title> 
+    <style> 
+        /* ================= VARIABLES Y RESET ================= */ 
+        :root { 
+            --primary: #00d2ff; 
+            --secondary: #3a7bd5; 
+            --dark: #070b14; 
+            --dark-card: rgba(30, 41, 59, 0.65); 
+            --text-light: #f8fafc; 
+            --text-muted: #cbd5e1; 
+            --accent-glow: rgba(0, 210, 255, 0.25); 
+        } 
 
-        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', system-ui, sans-serif; }
-        
-        body { 
-            background-color: var(--dark); 
-            color: var(--text-light); 
-            line-height: 1.6; 
-            overflow-x: hidden; 
-            min-height: 100vh;
-        }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', system-ui, sans-serif; } 
+         
+        body {  
+            background-color: var(--dark);  
+            color: var(--text-light);  
+            line-height: 1.6;  
+            overflow-x: hidden;  
+            min-height: 100vh; 
+        } 
 
-        /* ================= FONDO ANIMADO ================= */
-        #canvas-bg {
+        /* ================= FONDO ANIMADO ================= */ 
+        #canvas-bg { 
+            position: fixed; 
+            top: 0; 
+            left: 0; 
+            width: 100vw; 
+            height: 100vh; 
+            z-index: -1; 
+            opacity: 0.25; 
+        } 
+
+        /* ================= BARRA DE NAVEGACIÓN ================= */ 
+        .navbar { 
+            position: fixed; 
+            top: 0; 
+            width: 100%; 
+            padding: 1.2rem 2rem; 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            z-index: 1000; 
+            background-color: rgba(7, 11, 20, 0.88); 
+            backdrop-filter: blur(12px); 
+            -webkit-backdrop-filter: blur(12px); 
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05); 
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5); 
+        } 
+        .logo {  
+            font-size: 1.5rem;  
+            font-weight: 800;  
+            background: linear-gradient(to right, var(--primary), var(--secondary)); 
+            -webkit-background-clip: text; 
+            -webkit-text-fill-color: transparent; 
+            letter-spacing: 0.5px;  
+        } 
+        .nav-links { display: flex; gap: 2rem; } 
+        .nav-links a { 
+            color: var(--text-muted); 
+            text-decoration: none; 
+            font-weight: 600; 
+            font-size: 1.05rem; 
+            position: relative; 
+            padding-bottom: 5px; 
+            transition: color 0.3s; 
+            cursor: pointer; 
+        } 
+        .nav-links a:hover, .nav-links a.active-link { color: white; } 
+         
+        .nav-links a::after { 
+            content: ''; 
+            position: absolute; 
+            width: 0; 
+            height: 2px; 
+            bottom: 0; 
+            left: 50%; 
+            background: linear-gradient(90deg, var(--primary), var(--secondary)); 
+            transition: all 0.3s ease; 
+            transform: translateX(-50%); 
+        } 
+        .nav-links a:hover::after, .nav-links a.active-link::after { width: 100%; } 
+
+        /* ================= SISTEMA DE PÁGINAS (VISTAS) ================= */ 
+        .page-view { 
+            display: none;  
+            opacity: 0; 
+            padding-top: 100px;  
+            min-height: 100vh; 
+            animation: fadeView 0.5s forwards ease-out; 
+        } 
+        .page-view.active-view { 
+            display: block; 
+        } 
+        #inicio.active-view { 
+            display: flex; 
+        } 
+
+        @keyframes fadeView { 
+            0% { opacity: 0; transform: translateY(20px) scale(0.98); } 
+            100% { opacity: 1; transform: translateY(0) scale(1); } 
+        } 
+
+        /* ================= HERO SECTION ================= */ 
+        .hero { 
+            flex-direction: column; 
+            justify-content: center; 
+            align-items: center; 
+            text-align: center; 
+            padding: 0 1.5rem; 
+            background: radial-gradient(circle at center, rgba(58, 123, 213, 0.15) 0%, transparent 65%); 
+        } 
+         
+        .hero-icon { 
+            font-size: 5rem; 
+            margin-bottom: 1.5rem; 
+            filter: drop-shadow(0 0 15px rgba(0, 210, 255, 0.4)); 
+            animation: floatIcon 3s ease-in-out infinite; 
+        } 
+
+        @keyframes floatIcon { 
+            0%, 100% { transform: translateY(0); } 
+            50% { transform: translateY(-10px); } 
+        } 
+
+        #inicio.active-view .institution-tag { 
+            font-size: 1.1rem; 
+            text-transform: uppercase; 
+            letter-spacing: 3px; 
+            color: var(--primary); 
+            margin-bottom: 1rem; 
+            font-weight: 700; 
+        } 
+
+        #inicio.active-view h1 { 
+            font-size: 3.5rem; 
+            max-width: 1000px; 
+            margin-bottom: 1.5rem; 
+            background: linear-gradient(135deg, #ffffff 0%, var(--primary) 100%); 
+            -webkit-background-clip: text; 
+            -webkit-text-fill-color: transparent; 
+            text-shadow: 0px 0px 25px var(--accent-glow); 
+            line-height: 1.2; 
+        } 
+        #inicio.active-view p { 
+            font-size: 1.25rem; 
+            color: var(--text-muted); 
+            max-width: 800px; 
+            margin-bottom: 2.5rem; 
+            line-height: 1.7; 
+        } 
+        #inicio.active-view .btn-main { 
+            display: inline-block; 
+            padding: 1rem 2.5rem; 
+            background: linear-gradient(45deg, var(--secondary), var(--primary)); 
+            color: white; 
+            text-decoration: none; 
+            border-radius: 30px; 
+            font-weight: bold; 
+            font-size: 1.1rem; 
+            cursor: pointer; 
+            border: none; 
+            transition: all 0.3s ease; 
+            box-shadow: 0 4px 15px rgba(0, 210, 255, 0.2); 
+        } 
+         
+        .btn-main:hover { 
+            transform: translateY(-3px) scale(1.05); 
+            box-shadow: 0 10px 25px rgba(0, 210, 255, 0.4); 
+        } 
+
+        /* ================= SECCIONES Y CONTENEDORES ================= */ 
+        section { padding: 4rem 2rem 6rem; } 
+        .section-title { 
+            text-align: center; 
+            font-size: 2.5rem; 
+            margin-bottom: 3.5rem; 
+            color: white; 
+            position: relative; 
+            display: inline-block; 
+            left: 50%; 
+            transform: translateX(-50%); 
+        } 
+        .section-title::after { 
+            content: ''; 
+            position: absolute; 
+            bottom: -10px; 
+            left: 25%; 
+            width: 50%; 
+            height: 3px; 
+            background: linear-gradient(90deg, transparent, var(--primary), transparent); 
+        } 
+        .container { max-width: 1200px; margin: 0 auto; } 
+
+        /* ================= TARJETAS GLASSMORPHISM ================= */ 
+        .grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 2.5rem; } 
+        .grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(450px, 1fr)); gap: 2.5rem; } 
+         
+        .card-glass { 
+            background-color: var(--dark-card); 
+            backdrop-filter: blur(16px); 
+            -webkit-backdrop-filter: blur(16px); 
+            border-radius: 20px; 
+            border: 1px solid rgba(255,255,255,0.08); 
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3); 
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
+            position: relative; 
+            overflow: hidden; 
+            padding: 2.5rem; 
+        } 
+        .card-glass:hover { 
+            transform: translateY(-8px); 
+            border-color: rgba(0, 210, 255, 0.5); 
+            box-shadow: 0 15px 40px rgba(0, 210, 255, 0.15); 
+        } 
+
+        /* ================= COMPETENCIA GENERAL Y PERFIL ================= */ 
+        .competencia-box { 
+            background: linear-gradient(135deg, rgba(30, 41, 59, 0.8), rgba(15, 23, 42, 0.9)); 
+            border-left: 5px solid var(--primary); 
+            padding: 3rem; 
+            border-radius: 16px; 
+            margin-bottom: 3rem; 
+            box-shadow: 0 10px 30px rgba(0,0,0,0.4); 
+            position: relative; 
+        } 
+        .competencia-box::before { 
+            content: '🎯'; 
+            position: absolute; 
+            top: 2rem; 
+            right: 2rem; 
+            font-size: 3rem; 
+            opacity: 0.2; 
+        } 
+        .competencia-box h3 { 
+            font-size: 1.8rem; 
+            color: white; 
+            margin-bottom: 1rem; 
+            display: flex; 
+            align-items: center; 
+            gap: 10px; 
+        } 
+        .competencia-box p { 
+            font-size: 1.15rem; 
+            color: var(--text-muted); 
+            line-height: 1.8; 
+        } 
+
+        .skill-list { list-style: none; margin-top: 1.5rem; } 
+        .skill-list li { margin-bottom: 1rem; display: flex; align-items: flex-start; font-size: 1rem; color: var(--text-muted); } 
+        .skill-list li span.icon-bullet { margin-right: 12px; font-size: 1.2rem; line-height: 1; } 
+
+        /* ================= MALLA CURRICULAR (NIVELES) ================= */ 
+        .nivel-card h3 { 
+            font-size: 1.8rem; 
+            color: var(--primary); 
+            margin-bottom: 1.5rem; 
+            border-bottom: 1px solid rgba(255,255,255,0.1); 
+            padding-bottom: 0.8rem; 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+        } 
+        .subarea-item { 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            background: rgba(15, 23, 42, 0.5); 
+            padding: 1rem 1.2rem; 
+            border-radius: 10px; 
+            margin-bottom: 0.8rem; 
+            border: 1px solid rgba(255,255,255,0.03); 
+            transition: background 0.3s; 
+        } 
+        .subarea-item:hover { 
+            background: rgba(0, 210, 255, 0.08); 
+        } 
+        .subarea-nombre { 
+            font-weight: 600; 
+            color: white; 
+            font-size: 0.95rem; 
+            padding-right: 1rem; 
+            display: flex; 
+            align-items: center; 
+            gap: 8px; 
+        } 
+        .subarea-horas { 
+            background: rgba(0, 210, 255, 0.15); 
+            color: var(--primary); 
+            padding: 0.3rem 0.8rem; 
+            border-radius: 20px; 
+            font-size: 0.85rem; 
+            font-weight: bold; 
+            white-space: nowrap; 
+        } 
+
+        /* ================= ASISTENTE SUPERHERO (WIDGET FLOTANTE) ================= */ 
+        #superhero-assistant {
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            z-index: -1;
-            opacity: 0.25;
-        }
-
-        /* ================= BARRA DE NAVEGACIÓN ================= */
-        .navbar {
-            position: fixed;
-            top: 0;
-            width: 100%;
-            padding: 1.2rem 2rem;
+            bottom: 25px;
+            right: 25px;
+            z-index: 9999;
             display: flex;
-            justify-content: space-between;
-            align-items: center;
-            z-index: 1000;
-            background-color: rgba(7, 11, 20, 0.88);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+            align-items: flex-end;
+            gap: 12px;
+            pointer-events: none; /* Permite hacer clic a través si es necesario */
         }
-        .logo { 
-            font-size: 1.5rem; 
-            font-weight: 800; 
-            background: linear-gradient(to right, var(--primary), var(--secondary));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            letter-spacing: 0.5px; 
+        #superhero-assistant > * {
+            pointer-events: auto;
         }
-        .nav-links { display: flex; gap: 2rem; }
-        .nav-links a {
-            color: var(--text-muted);
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 1.05rem;
+        .hero-avatar-container {
             position: relative;
-            padding-bottom: 5px;
-            transition: color 0.3s;
             cursor: pointer;
+            transition: transform 0.3s ease;
         }
-        .nav-links a:hover, .nav-links a.active-link { color: white; }
-        
-        .nav-links a::after {
-            content: '';
-            position: absolute;
-            width: 0;
-            height: 2px;
-            bottom: 0;
-            left: 50%;
-            background: linear-gradient(90deg, var(--primary), var(--secondary));
-            transition: all 0.3s ease;
-            transform: translateX(-50%);
+        .hero-avatar-container:hover {
+            transform: scale(1.08);
         }
-        .nav-links a:hover::after, .nav-links a.active-link::after { width: 100%; }
-
-        /* ================= SISTEMA DE PÁGINAS (VISTAS) ================= */
-        .page-view {
-            display: none; 
-            opacity: 0;
-            padding-top: 100px; 
-            min-height: 100vh;
-            animation: fadeView 0.5s forwards ease-out;
-        }
-        .page-view.active-view {
-            display: block;
-        }
-        #inicio.active-view {
+        .hero-avatar {
+            width: 90px;
+            height: 90px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--secondary), var(--primary));
             display: flex;
-        }
-
-        @keyframes fadeView {
-            0% { opacity: 0; transform: translateY(20px) scale(0.98); }
-            100% { opacity: 1; transform: translateY(0) scale(1); }
-        }
-
-        /* ================= HERO SECTION ================= */
-        .hero {
-            flex-direction: column;
+            align-items: center;
             justify-content: center;
-            align-items: center;
-            text-align: center;
-            padding: 0 1.5rem;
-            background: radial-gradient(circle at center, rgba(58, 123, 213, 0.15) 0%, transparent 65%);
-        }
-        
-        .hero-icon {
-            font-size: 5rem;
-            margin-bottom: 1.5rem;
-            filter: drop-shadow(0 0 15px rgba(0, 210, 255, 0.4));
-            animation: floatIcon 3s ease-in-out infinite;
-        }
-
-        @keyframes floatIcon {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
-        }
-
-        #inicio.active-view .institution-tag {
-            font-size: 1.1rem;
-            text-transform: uppercase;
-            letter-spacing: 3px;
-            color: var(--primary);
-            margin-bottom: 1rem;
-            font-weight: 700;
-        }
-
-        #inicio.active-view h1 {
-            font-size: 3.5rem;
-            max-width: 1000px;
-            margin-bottom: 1.5rem;
-            background: linear-gradient(135deg, #ffffff 0%, var(--primary) 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            text-shadow: 0px 0px 25px var(--accent-glow);
-            line-height: 1.2;
-        }
-        #inicio.active-view p {
-            font-size: 1.25rem;
-            color: var(--text-muted);
-            max-width: 800px;
-            margin-bottom: 2.5rem;
-            line-height: 1.7;
-        }
-        #inicio.active-view .btn-main {
-            display: inline-block;
-            padding: 1rem 2.5rem;
-            background: linear-gradient(45deg, var(--secondary), var(--primary));
-            color: white;
-            text-decoration: none;
-            border-radius: 30px;
-            font-weight: bold;
-            font-size: 1.1rem;
-            cursor: pointer;
-            border: none;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(0, 210, 255, 0.2);
-        }
-        
-        .btn-main:hover {
-            transform: translateY(-3px) scale(1.05);
-            box-shadow: 0 10px 25px rgba(0, 210, 255, 0.4);
-        }
-
-        /* ================= SECCIONES Y CONTENEDORES ================= */
-        section { padding: 4rem 2rem 6rem; }
-        .section-title {
-            text-align: center;
-            font-size: 2.5rem;
-            margin-bottom: 3.5rem;
-            color: white;
+            font-size: 3rem;
+            box-shadow: 0 8px 25px rgba(0, 210, 255, 0.4);
+            border: 3px solid rgba(255, 255, 255, 0.2);
             position: relative;
-            display: inline-block;
-            left: 50%;
-            transform: translateX(-50%);
         }
-        .section-title::after {
+        /* Animación de pulso cuando está hablando */
+        .hero-avatar.speaking {
+            animation: heroPulse 0.8s infinite alternate;
+        }
+        @keyframes heroPulse {
+            0% { transform: scale(1); box-shadow: 0 0 15px var(--primary); }
+            100% { transform: scale(1.05); box-shadow: 0 0 30px var(--primary), 0 0 50px var(--secondary); }
+        }
+        .hero-speech-bubble {
+            background: rgba(15, 23, 42, 0.95);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(0, 210, 255, 0.4);
+            color: white;
+            padding: 12px 18px;
+            border-radius: 16px;
+            max-width: 280px;
+            font-size: 0.95rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            position: relative;
+            display: none;
+            animation: fadeInBubble 0.3s ease-out forwards;
+        }
+        @keyframes fadeInBubble {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .hero-speech-bubble::after {
             content: '';
             position: absolute;
-            bottom: -10px;
-            left: 25%;
-            width: 50%;
-            height: 3px;
-            background: linear-gradient(90deg, transparent, var(--primary), transparent);
-        }
-        .container { max-width: 1200px; margin: 0 auto; }
-
-        /* ================= TARJETAS GLASSMORPHISM ================= */
-        .grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 2.5rem; }
-        .grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(450px, 1fr)); gap: 2.5rem; }
-        
-        .card-glass {
-            background-color: var(--dark-card);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            border-radius: 20px;
-            border: 1px solid rgba(255,255,255,0.08);
-            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            position: relative;
-            overflow: hidden;
-            padding: 2.5rem;
-        }
-        .card-glass:hover {
-            transform: translateY(-8px);
-            border-color: rgba(0, 210, 255, 0.5);
-            box-shadow: 0 15px 40px rgba(0, 210, 255, 0.15);
+            right: -8px;
+            bottom: 20px;
+            width: 0;
+            height: 0;
+            border-top: 8px solid transparent;
+            border-bottom: 8px solid transparent;
+            border-left: 8px solid rgba(15, 23, 42, 0.95);
         }
 
-        /* ================= COMPETENCIA GENERAL Y PERFIL ================= */
-        .competencia-box {
-            background: linear-gradient(135deg, rgba(30, 41, 59, 0.8), rgba(15, 23, 42, 0.9));
-            border-left: 5px solid var(--primary);
-            padding: 3rem;
-            border-radius: 16px;
-            margin-bottom: 3rem;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.4);
-            position: relative;
-        }
-        .competencia-box::before {
-            content: '🎯';
-            position: absolute;
-            top: 2rem;
-            right: 2rem;
-            font-size: 3rem;
-            opacity: 0.2;
-        }
-        .competencia-box h3 {
-            font-size: 1.8rem;
-            color: white;
-            margin-bottom: 1rem;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        .competencia-box p {
-            font-size: 1.15rem;
-            color: var(--text-muted);
-            line-height: 1.8;
-        }
-
-        .skill-list { list-style: none; margin-top: 1.5rem; }
-        .skill-list li { margin-bottom: 1rem; display: flex; align-items: flex-start; font-size: 1rem; color: var(--text-muted); }
-        .skill-list li span.icon-bullet { margin-right: 12px; font-size: 1.2rem; line-height: 1; }
-
-        /* ================= MALLA CURRICULAR (NIVELES) ================= */
-        .nivel-card h3 {
-            font-size: 1.8rem;
+        /* Botones de lectura en los módulos */
+        .btn-speak {
+            background: rgba(0, 210, 255, 0.12);
             color: var(--primary);
-            margin-bottom: 1.5rem;
-            border-bottom: 1px solid rgba(255,255,255,0.1);
-            padding-bottom: 0.8rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        .subarea-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background: rgba(15, 23, 42, 0.5);
-            padding: 1rem 1.2rem;
-            border-radius: 10px;
-            margin-bottom: 0.8rem;
-            border: 1px solid rgba(255,255,255,0.03);
-            transition: background 0.3s;
-        }
-        .subarea-item:hover {
-            background: rgba(0, 210, 255, 0.08);
-        }
-        .subarea-nombre {
+            border: 1px solid rgba(0, 210, 255, 0.3);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
             font-weight: 600;
-            color: white;
-            font-size: 0.95rem;
-            padding-right: 1rem;
-            display: flex;
+            font-size: 0.9rem;
+            cursor: pointer;
+            display: inline-flex;
             align-items: center;
-            gap: 8px;
+            gap: 6px;
+            margin-top: 1rem;
+            transition: all 0.3s ease;
         }
-        .subarea-horas {
-            background: rgba(0, 210, 255, 0.15);
-            color: var(--primary);
-            padding: 0.3rem 0.8rem;
-            border-radius: 20px;
-            font-size: 0.85rem;
-            font-weight: bold;
-            white-space: nowrap;
+        .btn-speak:hover {
+            background: var(--primary);
+            color: var(--dark);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 210, 255, 0.3);
         }
 
-        /* ================= RESPONSIVO ================= */
-        @media (max-width: 768px) {
-            .navbar { flex-direction: column; gap: 1rem; padding: 1rem; }
-            #inicio.active-view h1 { font-size: 2.3rem; }
-            .nav-links { gap: 1rem; }
-            .page-view { padding-top: 130px; }
-            .competencia-box { padding: 1.5rem; }
-        }
-    </style>
-</head>
-<body>
+        /* ================= RESPONSIVO ================= */ 
+        @media (max-width: 768px) { 
+            .navbar { flex-direction: column; gap: 1rem; padding: 1rem; } 
+            #inicio.active-view h1 { font-size: 2.3rem; } 
+            .nav-links { gap: 1rem; } 
+            .page-view { padding-top: 130px; } 
+            .competencia-box { padding: 1.5rem; } 
+            #superhero-assistant { bottom: 15px; right: 15px; }
+            .hero-avatar { width: 75px; height: 75px; font-size: 2.3rem; }
+            .hero-speech-bubble { max-width: 220px; font-size: 0.85rem; }
+        } 
+    </style> 
+</head> 
+<body> 
 
-    <!-- Fondo de partículas -->
-    <canvas id="canvas-bg"></canvas>
+    <!-- Fondo de partículas --> 
+    <canvas id="canvas-bg"></canvas> 
 
-    <!-- Barra de Navegación -->
-    <nav class="navbar" id="navbar">
-        <div class="logo">☁️ CTP La Suiza - Cloud</div>
-        <div class="nav-links">
-            <a data-target="inicio" class="nav-btn active-link">Inicio</a>
-            <a data-target="malla" class="nav-btn">Malla Curricular</a>
-            <a data-target="perfil" class="nav-btn">Perfil Profesional</a>
-        </div>
-    </nav>
+    <!-- Barra de Navegación --> 
+    <nav class="navbar" id="navbar"> 
+        <div class="logo">☁️ CTP La Suiza - Cloud</div> 
+        <div class="nav-links"> 
+            <a data-target="inicio" class="nav-btn active-link">Inicio</a> 
+            <a data-target="malla" class="nav-btn">Malla Curricular</a> 
+            <a data-target="perfil" class="nav-btn">Perfil Profesional</a> 
+        </div> 
+    </nav> 
 
-    <!-- ================= VISTA 1: INICIO ================= -->
-    <section id="inicio" class="page-view hero active-view">
-        <div class="hero-icon">🌩️</div>
-        <div class="institution-tag">Colegio Técnico Profesional La Suiza</div>
-        <h1>Configuración y Administración de Servicios en la Nube</h1>
-        <p>Especialidad técnica orientada a formar profesionales capaces de ejecutar la configuración, operación y monitoreo de ambientes y servicios en la nube bajo estrictos estándares de seguridad, ética y mejora continua.</p>
-        <button data-target="malla" class="btn-main nav-btn">Ver Plan de Estudios 🚀</button>
-    </section>
-
-    <!-- ================= VISTA 2: MALLA CURRICULAR ================= -->
-    <section id="malla" class="page-view container">
-        <h2 class="section-title">Malla Curricular por Nivel</h2>
+    <!-- ================= VISTA 1: INICIO ================= --> 
+    <section id="inicio" class="page-view hero active-view"> 
+        <div class="hero-icon">🌩️</div> 
+        <div class="institution-tag">Colegio Técnico Profesional La Suiza</div> 
+        <h1>Configuración y Administración de Servicios en la Nube</h1> 
+        <p>Especialidad técnica orientada a formar profesionales capaces de ejecutar la configuración, operación y monitoreo de ambientes y servicios en la nube bajo estrictos estándares de seguridad, ética y mejora continua.</p> 
         
-        <div class="grid-3">
-            <!-- Décimo Nivel -->
-            <div class="card-glass nivel-card">
-                <h3>Décimo Nivel <span>🔟</span></h3>
-                <div class="subarea-item">
-                    <span class="subarea-nombre">💻 Herramientas para la producción, transformación digital y seguridad de datos</span>
-                    <span class="subarea-horas">4 hrs</span>
-                </div>
-                <div class="subarea-item">
-                    <span class="subarea-nombre">⚡ Programación</span>
-                    <span class="subarea-horas">8 hrs</span>
-                </div>
-                <div class="subarea-item">
-                    <span class="subarea-nombre">🌐 Redes y virtualización</span>
-                    <span class="subarea-horas">4 hrs</span>
-                </div>
-                <div class="subarea-item">
-                    <span class="subarea-nombre">🇬🇧 English Oriented to cloud computing</span>
-                    <span class="subarea-horas">4 hrs</span>
-                </div>
-            </div>
-
-            <!-- Undécimo Nivel -->
-            <div class="card-glass nivel-card">
-                <h3>Undécimo Nivel <span>1️⃣1️⃣</span></h3>
-                <div class="subarea-item">
-                    <span class="subarea-nombre">💡 Emprendimiento e innovación</span>
-                    <span class="subarea-horas">4 hrs</span>
-                </div>
-                <div class="subarea-item">
-                    <span class="subarea-nombre">⚡ Programación</span>
-                    <span class="subarea-horas">4 hrs</span>
-                </div>
-                <div class="subarea-item">
-                    <span class="subarea-nombre">🌐 Redes y virtualización</span>
-                    <span class="subarea-horas">4 hrs</span>
-                </div>
-                <div class="subarea-item">
-                    <span class="subarea-nombre">☁️ Servicios y recursos en la nube</span>
-                    <span class="subarea-horas">8 hrs</span>
-                </div>
-                <div class="subarea-item">
-                    <span class="subarea-nombre">🇬🇧 English Oriented to cloud computing</span>
-                    <span class="subarea-horas">4 hrs</span>
-                </div>
-            </div>
-
-            <!-- Duodécimo Nivel -->
-            <div class="card-glass nivel-card">
-                <h3>Duodécimo Nivel <span>1️⃣2️⃣</span></h3>
-                <div class="subarea-item">
-                    <span class="subarea-nombre">☁️ Servicios en la nube</span>
-                    <span class="subarea-horas">8 hrs</span>
-                </div>
-                <div class="subarea-item">
-                    <span class="subarea-nombre">⚡ Programación</span>
-                    <span class="subarea-horas">4 hrs</span>
-                </div>
-                <div class="subarea-item">
-                    <span class="subarea-nombre">🌐 Redes y virtualización</span>
-                    <span class="subarea-horas">8 hrs</span>
-                </div>
-                <div class="subarea-item">
-                    <span class="subarea-nombre">🇬🇧 English Oriented to cloud computing</span>
-                    <span class="subarea-horas">4 hrs</span>
-                </div>
-            </div>
+        <div style="display: flex; gap: 1rem; justify-content: center; align-items: center; flex-wrap: wrap;">
+            <button data-target="malla" class="btn-main nav-btn">Ver Plan de Estudios 🚀</button>
+            <button class="btn-speak" onclick="leerTextoModulo('¡Hola! Soy tu superhéroe asistente de CTP La Suiza. Esta especialidad te prepara para dominar la configuración y administración de servicios en la nube con altos estándares de seguridad.')">
+                🦸‍♂️ ¡Que el Superhéroe hable de esto!
+            </button>
         </div>
-    </section>
+    </section> 
 
-    <!-- ================= VISTA 3: PERFIL PROFESIONAL ================= -->
-    <section id="perfil" class="page-view container">
-        <h2 class="section-title">Perfil de Competencias</h2>
-        
-        <div class="competencia-box">
-            <h3>🛡️ Competencia General</h3>
-            <p>Ejecutar la configuración, operación y monitoreo de ambientes y servicios en la nube, implementando seguridad, mejores prácticas y mejora continua, conforme instrucciones recibidas, actuando con ética a nivel personal y profesional, participando en equipos de trabajo en la solución de problemas, con comunicación asertiva y promoviendo un ambiente de sana convivencia.</p>
+    <!-- ================= VISTA 2: MALLA CURRICULAR ================= --> 
+    <section id="malla" class="page-view container"> 
+        <h2 class="section-title">Malla Curricular por Nivel</h2> 
+          
+        <div style="text-align: center; margin-bottom: 2rem;">
+            <button class="btn-speak" onclick="leerTextoModulo('Aquí tienes la malla curricular completa organizada por niveles: desde décimo, pasando por undécimo, hasta duodécimo año, abarcando programación, redes, virtualización y servicios en la nube.')">
+                🦸‍♂️ Explicar Malla Curricular
+            </button>
         </div>
 
-        <div class="card-glass">
-            <h3 style="color: white; font-size: 1.5rem; margin-bottom: 0.5rem; display: flex; align-items: center; gap: 10px;">📋 Competencias Específicas</h3>
-            <p style="color: var(--text-muted); margin-bottom: 1.5rem;">Habilidades técnicas clave desarrolladas al concluir la especialidad:</p>
-            <ul class="skill-list">
-                <li><span class="icon-bullet">🔹</span>Configurar requerimientos de ambientes en la nube, según necesidades establecidas y procedimientos de seguridad.</li>
-                <li><span class="icon-bullet">🔹</span>Configurar redes virtuales, conforme requerimientos establecidos y procedimientos de seguridad.</li>
-                <li><span class="icon-bullet">🔹</span>Programar scripts de automatización de tareas de configuración en la nube, según requerimientos establecidos, procedimientos de seguridad y buenas prácticas.</li>
-            </ul>
+        <div class="grid-3"> 
+            <!-- Décimo Nivel --> 
+            <div class="card-glass nivel-card"> 
+                <h3>Décimo Nivel <span>🔟</span></h3> 
+                <div class="subarea-item"> 
+                    <span class="subarea-nombre">💻 Herramientas para la producción, transformación digital y seguridad de datos</span> 
+                    <span class="subarea-horas">4 hrs</span> 
+                </div> 
+                <div class="subarea-item"> 
+                    <span class="subarea-nombre">⚡ Programación</span> 
+                    <span class="subarea-horas">8 hrs</span> 
+                </div> 
+                <div class="subarea-item"> 
+                    <span class="subarea-nombre">🌐 Redes y virtualización</span> 
+                    <span class="subarea-horas">4 hrs</span> 
+                </div> 
+                <div class="subarea-item"> 
+                    <span class="subarea-nombre">🇬🇧 English Oriented to cloud computing</span> 
+                    <span class="subarea-horas">4 hrs</span> 
+                </div> 
+            </div> 
+
+            <!-- Undécimo Nivel --> 
+            <div class="card-glass nivel-card"> 
+                <h3>Undécimo Nivel <span>1️⃣1️⃣</span></h3> 
+                <div class="subarea-item"> 
+                    <span class="subarea-nombre">💡 Emprendimiento e innovación</span> 
+                    <span class="subarea-horas">4 hrs</span> 
+                </div> 
+                <div class="subarea-item"> 
+                    <span class="subarea-nombre">⚡ Programación</span> 
+                    <span class="subarea-horas">4 hrs</span> 
+                </div> 
+                <div class="subarea-item"> 
+                    <span class="subarea-nombre">🌐 Redes y virtualización</span> 
+                    <span class="subarea-horas">4 hrs</span> 
+                </div> 
+                <div class="subarea-item"> 
+                    <span class="subarea-nombre">☁️ Servicios y recursos en la nube</span> 
+                    <span class="subarea-horas">8 hrs</span> 
+                </div> 
+                <div class="subarea-item"> 
+                    <span class="subarea-nombre">🇬🇧 English Oriented to cloud computing</span> 
+                    <span class="subarea-horas">4 hrs</span> 
+                </div> 
+            </div> 
+
+            <!-- Duodécimo Nivel --> 
+            <div class="card-glass nivel-card"> 
+                <h3>Duodécimo Nivel <span>1️⃣2️⃣</span></h3> 
+                <div class="subarea-item"> 
+                    <span class="subarea-nombre">☁️ Servicios en la nube</span> 
+                    <span class="subarea-horas">8 hrs</span> 
+                </div> 
+                <div class="subarea-item"> 
+                    <span class="subarea-nombre">⚡ Programación</span> 
+                    <span class="subarea-horas">4 hrs</span> 
+                </div> 
+                <div class="subarea-item"> 
+                    <span class="subarea-nombre">🌐 Redes y virtualización</span> 
+                    <span class="subarea-horas">8 hrs</span> 
+                </div> 
+                <div class="subarea-item"> 
+                    <span class="subarea-nombre">🇬🇧 English Oriented to cloud computing</span> 
+                    <span class="subarea-horas">4 hrs</span> 
+                </div> 
+            </div> 
+        </div> 
+    </section> 
+
+    <!-- ================= VISTA 3: PERFIL PROFESIONAL ================= --> 
+    <section id="perfil" class="page-view container"> 
+        <h2 class="section-title">Perfil de Competencias</h2> 
+          
+        <div style="text-align: center; margin-bottom: 2rem;">
+            <button class="btn-speak" onclick="leerTextoModulo('El perfil profesional destaca la capacidad para configurar ambientes en la nube, diseñar redes virtuales y programar scripts de automatización con total seguridad y ética profesional.')">
+                🦸‍♂️ Leer Perfil Profesional
+            </button>
         </div>
-    </section>
 
-    <!-- ================= SCRIPTS ================= -->
-    <script>
-        // 1. SISTEMA DE NAVEGACIÓN TIPO SPA
-        const navButtons = document.querySelectorAll('.nav-btn');
-        const pages = document.querySelectorAll('.page-view');
+        <div class="competencia-box"> 
+            <h3>🛡️ Competencia General</h3> 
+            <p>Ejecutar la configuración, operación y monitoreo de ambientes y servicios en la nube, implementando seguridad, mejores prácticas y mejora continua, conforme instrucciones recibidas, actuando con ética a nivel personal y profesional, participando en equipos de trabajo en la solución de problemas, con comunicación asertiva y promoviendo un ambiente de sana convivencia.</p> 
+        </div> 
 
-        navButtons.forEach(btn => {
-            btn.addEventListener('click', (e) => {
-                e.preventDefault();
-                const targetId = btn.getAttribute('data-target');
+        <div class="card-glass"> 
+            <h3 style="color: white; font-size: 1.5rem; margin-bottom: 0.5rem; display: flex; align-items: center; gap: 10px;">📋 Competencias Específicas</h3> 
+            <p style="color: var(--text-muted); margin-bottom: 1.5rem;">Habilidades técnicas clave desarrolladas al concluir la especialidad:</p> 
+            <ul class="skill-list"> 
+                <li><span class="icon-bullet">🔹</span>Configurar requerimientos de ambientes en la nube, según necesidades establecidas y procedimientos de seguridad.</li> 
+                <li><span class="icon-bullet">🔹</span>Configurar redes virtuales, conforme requerimientos establecidos y procedimientos de seguridad.</li> 
+                <li><span class="icon-bullet">🔹</span>Programar scripts de automatización de tareas de configuración en la nube, según requerimientos establecidos, procedimientos de seguridad y buenas prácticas.</li> 
+            </ul> 
+        </div> 
+    </section> 
 
-                document.querySelectorAll('.nav-links .nav-btn').forEach(nav => {
-                    nav.classList.remove('active-link');
-                });
-                
-                if(btn.parentElement.classList.contains('nav-links')) {
-                    btn.classList.add('active-link');
-                } else {
-                    document.querySelector('.nav-links [data-target="malla"]').classList.add('active-link');
-                }
+    <!-- ================= WIDGET DEL SUPERHÉROE ASISTENTE ================= -->
+    <div id="superhero-assistant">
+        <div id="hero-speech-bubble" class="hero-speech-bubble">¡Hola! Haz clic en cualquier botón de lectura para que te explique los contenidos de la página.</div>
+        <div class="hero-avatar-container" onclick="testHablar()">
+            <div id="hero-avatar" class="hero-avatar">🦸‍♂️</div>
+        </div>
+    </div>
 
-                pages.forEach(page => {
-                    page.classList.remove('active-view');
-                    if(page.id === targetId) {
-                        setTimeout(() => {
-                            page.classList.add('active-view');
-                        }, 50);
-                    }
-                });
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-            });
-        });
+    <!-- ================= SCRIPTS ================= --> 
+    <script> 
+        // 1. SISTEMA DE NAVEGACIÓN TIPO SPA 
+        const navButtons = document.querySelectorAll('.nav-btn'); 
+        const pages = document.querySelectorAll('.page-view'); 
 
-        // 2. FONDO DE PARTÍCULAS INTERACTIVAS (CANVAS HTML5)
-        const canvas = document.getElementById('canvas-bg');
-        const ctx = canvas.getContext('2d');
-        let particlesArray;
+        navButtons.forEach(btn => { 
+            btn.addEventListener('click', (e) => { 
+                e.preventDefault(); 
+                const targetId = btn.getAttribute('data-target'); 
 
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
-        window.addEventListener('resize', () => {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-            init();
-        });
+                document.querySelectorAll('.nav-links .nav-btn').forEach(nav => { 
+                    nav.classList.remove('active-link'); 
+                }); 
+                 
+                if(btn.parentElement.classList.contains('nav-links')) { 
+                    btn.classList.add('active-link'); 
+                } else { 
+                    document.querySelector('.nav-links [data-target="malla"]').classList.add('active-link'); 
+                } 
 
-        class Particle {
-            constructor(x, y, directionX, directionY, size, color) {
-                this.x = x; this.y = y;
-                this.directionX = directionX; this.directionY = directionY;
-                this.size = size; this.color = color;
+                pages.forEach(page => { 
+                    page.classList.remove('active-view'); 
+                    if(page.id === targetId) { 
+                        setTimeout(() => { 
+                            page.classList.add('active-view'); 
+                        }, 50); 
+                    } 
+                }); 
+                window.scrollTo({ top: 0, behavior: 'smooth' }); 
+            }); 
+        }); 
+
+        // 2. FUNCIÓN DE TEXT-TO-SPEECH Y ANIMACIÓN DEL SUPERHÉROE
+        function leerTextoModulo(texto) {
+            if (!('speechSynthesis' in window)) {
+                alert("Tu navegador no soporta la función de voz.");
+                return;
             }
-            draw() {
-                ctx.beginPath();
-                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2, false);
-                ctx.fillStyle = this.color;
-                ctx.fill();
-            }
-            update() {
-                if (this.x > canvas.width || this.x < 0) this.directionX = -this.directionX;
-                if (this.y > canvas.height || this.y < 0) this.directionY = -this.directionY;
-                this.x += this.directionX;
-                this.y += this.directionY;
-                this.draw();
-            }
+
+            // Cancelar cualquier audio anterior
+            window.speechSynthesis.cancel();
+
+            const utterance = new SpeechSynthesisUtterance(texto);
+            utterance.lang = 'es-ES';
+            utterance.rate = 1.05; // Velocidad fluida
+
+            const avatar = document.getElementById('hero-avatar');
+            const bubble = document.getElementById('hero-speech-bubble');
+
+            // Mostrar el bocadillo con el texto que está leyendo
+            bubble.innerText = texto;
+            bubble.style.display = 'block';
+            avatar.classList.add('speaking');
+
+            utterance.onend = function() {
+                avatar.classList.remove('speaking');
+            };
+
+            utterance.onerror = function() {
+                avatar.classList.remove('speaking');
+            };
+
+            window.speechSynthesis.speak(utterance);
         }
 
-        function init() {
-            particlesArray = [];
-            let numberOfParticles = (canvas.height * canvas.width) / 9000;
-            for (let i = 0; i < numberOfParticles; i++) {
-                let size = (Math.random() * 2) + 1;
-                let x = (Math.random() * ((innerWidth - size * 2) - (size * 2)) + size * 2);
-                let y = (Math.random() * ((innerHeight - size * 2) - (size * 2)) + size * 2);
-                let directionX = (Math.random() * 1) - 0.5;
-                let directionY = (Math.random() * 1) - 0.5;
-                let color = 'rgba(0, 210, 255, 0.5)';
-                particlesArray.push(new Particle(x, y, directionX, directionY, size, color));
-            }
+        // Saludo rápido al hacer clic en el avatar directamente
+        function testHablar() {
+            leerTextoModulo("¡Saludos! Soy tu guía en CTP La Suiza. Explora las secciones de la página y haz clic en los botones de lectura para que te cuente todo.");
         }
 
-        function connect() {
-            let opacityValue = 1;
-            for (let a = 0; a < particlesArray.length; a++) {
-                for (let b = a; b < particlesArray.length; b++) {
-                    let distance = ((particlesArray[a].x - particlesArray[b].x) * (particlesArray[a].x - particlesArray[b].x)) + 
-                                   ((particlesArray[a].y - particlesArray[b].y) * (particlesArray[a].y - particlesArray[b].y));
-                    if (distance < (canvas.width / 7) * (canvas.height / 7)) {
-                        opacityValue = 1 - (distance / 20000);
-                        ctx.strokeStyle = 'rgba(0, 210, 255,' + opacityValue + ')';
-                        ctx.lineWidth = 1;
-                        ctx.beginPath();
-                        ctx.moveTo(particlesArray[a].x, particlesArray[a].y);
-                        ctx.lineTo(particlesArray[b].x, particlesArray[b].y);
-                        ctx.stroke();
-                    }
-                }
-            }
-        }
+        // 3. FONDO DE PARTÍCULAS INTERACTIVAS (CANVAS HTML5) 
+        const canvas = document.getElementById('canvas-bg'); 
+        const ctx = canvas.getContext('2d'); 
+        let particlesArray; 
 
-        function animate() {
-            requestAnimationFrame(animate);
-            ctx.clearRect(0, 0, innerWidth, innerHeight);
-            for (let i = 0; i < particlesArray.length; i++) {
-                particlesArray[i].update();
-            }
-            connect();
-        }
+        canvas.width = window.innerWidth; 
+        canvas.height = window.innerHeight; 
+        window.addEventListener('resize', () => { 
+            canvas.width = window.innerWidth; 
+            canvas.height = window.innerHeight; 
+            init(); 
+        }); 
 
-        init();
-        animate();
-    </script>
-</body>
+        class Particle { 
+            constructor(x, y, directionX, directionY, size, color) { 
+                this.x = x; this.y = y; 
+                this.directionX = directionX; this.directionY = directionY; 
+                this.size = size; this.color = color; 
+            } 
+            draw() { 
+                ctx.beginPath(); 
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2, false); 
+                ctx.fillStyle = this.color; 
+                ctx.fill(); 
+            } 
+            update() { 
+                if (this.x > canvas.width || this.x < 0) this.directionX = -this.directionX; 
+                if (this.y > canvas.height || this.y < 0) this.directionY = -this.directionY; 
+                this.x += this.directionX; 
+                this.y += this.directionY; 
+                this.draw(); 
+            } 
+        } 
+
+        function init() { 
+            particlesArray = []; 
+            let numberOfParticles = (canvas.height * canvas.width) / 9000; 
+            for (let i = 0; i < numberOfParticles; i++) { 
+                let size = (Math.random() * 2) + 1; 
+                let x = (Math.random() * ((innerWidth - size * 2) - (size * 2)) + size * 2); 
+                let y = (Math.random() * ((innerHeight - size * 2) - (size * 2)) + size * 2); 
+                let directionX = (Math.random() * 1) - 0.5; 
+                let directionY = (Math.random() * 1) - 0.5; 
+                let color = 'rgba(0, 210, 255, 0.5)'; 
+                particlesArray.push(new Particle(x, y, directionX, directionY, size, color)); 
+            } 
+        } 
+
+        function connect() { 
+            let opacityValue = 1; 
+            for (let a = 0; a < particlesArray.length; a++) { 
+                for (let b = a; b < particlesArray.length; b++) { 
+                    let distance = ((particlesArray[a].x - particlesArray[b].x) * (particlesArray[a].x - particlesArray[b].x)) +  
+                                   ((particlesArray[a].y - particlesArray[b].y) * (particlesArray[a].y - particlesArray[b].y)); 
+                    if (distance < (canvas.width / 7) * (canvas.height / 7)) { 
+                        opacityValue = 1 - (distance / 20000); 
+                        ctx.strokeStyle = 'rgba(0, 210, 255,' + opacityValue + ')'; 
+                        ctx.lineWidth = 1; 
+                        ctx.beginPath(); 
+                        ctx.moveTo(particlesArray[a].x, particlesArray[a].y); 
+                        ctx.lineTo(particlesArray[b].x, particlesArray[b].y); 
+                        ctx.stroke(); 
+                    } 
+                } 
+            } 
+        } 
+
+        function animate() { 
+            requestAnimationFrame(animate); 
+            ctx.clearRect(0, 0, innerWidth, innerHeight); 
+            for (let i = 0; i < particlesArray.length; i++) { 
+                particlesArray[i].update(); 
+            } 
+            connect(); 
+        } 
+
+        init(); 
+        animate(); 
+    </script> 
+</body> 
 </html>
