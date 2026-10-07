@@ -300,14 +300,14 @@
             white-space: nowrap; 
         } 
 
-        /* ================= PERSONAJE SUPERHÉROE 3D DE CUERPO COMPLETO ================= */ 
+        /* ================= PERSONAJE 3D DE CUERPO COMPLETO (POSICIONAMIENTO SEGURO) ================= */ 
         #fullbody-superhero {
             position: absolute;
-            top: 140px;
-            left: 30px;
+            top: 130px;
+            right: 25px; /* Ubicado en el margen derecho libre para no tapar los contenidos */
             z-index: 9999;
-            width: 140px;
-            height: 250px; /* Altura mayor para abarcar cuerpo completo 3D */
+            width: 130px;
+            height: 230px; 
             transition: all 1s cubic-bezier(0.25, 1, 0.5, 1);
             pointer-events: auto;
             cursor: pointer;
@@ -325,7 +325,7 @@
             transform: scale(1.05);
         }
 
-        /* Efecto de pulso y brillo lumínico cuando está hablando */
+        /* Efecto lumínico cuando está hablando */
         #fullbody-superhero.speaking .hero-full-image {
             animation: fullBodyGlow 0.4s infinite alternate;
         }
@@ -364,7 +364,7 @@
             .nav-links { gap: 1rem; } 
             .page-view { padding-top: 130px; } 
             .competencia-box { padding: 1.5rem; } 
-            #fullbody-superhero { width: 100px; height: 180px; }
+            #fullbody-superhero { width: 90px; height: 160px; right: 10px; }
         } 
     </style> 
 </head> 
@@ -513,10 +513,17 @@
     <script> 
         const heroElement = document.getElementById('fullbody-superhero');
 
-        // Función para mover al personaje de cuerpo completo y hablar detalladamente sin texto en pantalla
-        function hablarDetallado(x, y, texto, callback) {
+        // Función para mover al personaje por los márgenes seguros y hablar sin tapar contenido
+        function hablarDetallado(xSide, y, texto, callback) {
+            // Posicionar de forma inteligente en los márgenes (izquierda o derecha)
+            if (xSide === 'left') {
+                heroElement.style.left = '30px';
+                heroElement.style.right = 'auto';
+            } else {
+                heroElement.style.left = 'auto';
+                heroElement.style.right = '30px';
+            }
             heroElement.style.top = y + 'px';
-            heroElement.style.left = x + 'px';
 
             if (!('speechSynthesis' in window)) {
                 if (callback) callback();
@@ -543,37 +550,37 @@
             window.speechSynthesis.speak(utterance);
         }
 
-        // Tour completo que explica TODO el contenido módulo por módulo sin burbujas de texto
+        // Tour completo alternando márgenes izquierdo y derecho para no interferir con las tarjetas
         function iniciarExplicacionCompleta() {
             cambiarVista('inicio');
-            hablarDetallado(30, 200, "¡Bienvenidos al Colegio Técnico Profesional La Suiza! Esta es la presentación oficial de nuestra especialidad técnica en Configuración y Administración de Servicios en la Nube, diseñada para formar profesionales de alto nivel tecnológico.", () => {
+            hablarDetallado('right', 180, "¡Bienvenidos al Colegio Técnico Profesional La Suiza! Esta es la presentación oficial de nuestra especialidad técnica en Configuración y Administración de Servicios en la Nube, diseñada para formar profesionales de alto nivel tecnológico.", () => {
                 
                 cambiarVista('malla');
                 window.scrollTo({ top: 300, behavior: 'smooth' });
-                hablarDetallado(30, 450, "Analicemos la malla curricular completa paso a paso. En el décimo nivel, cursamos: Herramientas para la producción, transformación digital y seguridad de datos con 4 horas semanales; Programación con 8 horas; Redes y virtualización con 4 horas; e Inglés orientado a cloud computing con 4 horas. En el undécimo nivel, se integra Emprendimiento e innovación con 4 horas, Programación con 4 horas, Redes y virtualización con 4 horas, el núcleo principal de Servicios y recursos en la nube con 8 horas, e Inglés con 4 horas. Finalmente, en el duodécimo nivel, profundizamos con Servicios en la nube durante 8 horas, Programación con 4 horas, Redes y virtualización con 8 horas, y nuestro módulo de inglés técnico.", () => {
+                hablarDetallado('left', 250, "Analicemos la malla curricular completa paso a paso. En el décimo nivel, cursamos: Herramientas para la producción, transformación digital y seguridad de datos con 4 horas semanales; Programación con 8 horas; Redes y virtualización con 4 horas; e Inglés orientado a cloud computing con 4 horas. En el undécimo nivel, se integra Emprendimiento e innovación con 4 horas, Programación con 4 horas, Redes y virtualización con 4 horas, el núcleo principal de Servicios y recursos en la nube con 8 horas, e Inglés con 4 horas. Finalmente, en el duodécimo nivel, profundizamos con Servicios en la nube durante 8 horas, Programación con 4 horas, Redes y virtualización con 8 horas, y nuestro módulo de inglés técnico.", () => {
                     
                     cambiarVista('perfil');
                     window.scrollTo({ top: 850, behavior: 'smooth' });
-                    hablarDetallado(30, 750, "Para concluir, veamos el perfil profesional. Nuestra competencia general consiste en ejecutar la configuración, operación y monitoreo de ambientes y servicios en la nube con altos estándares de seguridad y ética. Como competencias específicas destacamos: configurar requerimientos de ambientes en la nube, configurar redes virtuales seguras, y programar scripts de automatización de tareas con excelentes prácticas profesionales.", () => {
-                        hablarDetallado(30, 200, "¡Hemos recorrido todos los módulos de la especialidad! Puedes explorar libremente haciendo clic en los botones de cada sección.");
+                    hablarDetallado('right', 300, "Para concluir, veamos el perfil profesional. Nuestra competencia general consiste en ejecutar la configuración, operación y monitoreo de ambientes y servicios en la nube con altos estándares de seguridad y ética. Como competencias específicas destacamos: configurar requerimientos de ambientes en la nube, configurar redes virtuales seguras, y programar scripts de automatización de tareas con excelentes prácticas profesionales.", () => {
+                        hablarDetallado('left', 200, "¡Hemos recorrido todos los módulos de la especialidad! Puedes explorar libremente haciendo clic en los botones de cada sección.");
                     });
 
                 });
             });
         }
 
-        // Explicación específica por sección
+        // Explicación específica por sección usando márgenes seguros
         function explicarModuloEspecifico(targetId) {
             cambiarVista(targetId);
             if (targetId === 'malla') {
-                hablarDetallado(30, 250, "En la malla curricular abarcamos tres niveles clave. Décimo nivel sienta las bases en programación y redes. Undécimo introduce los servicios y recursos en la nube. Y duodécimo año consolida la administración avanzada de infraestructura tecnológica.");
+                hablarDetallado('left', 250, "En la malla curricular abarcamos tres niveles clave. Décimo nivel sienta las bases en programación y redes. Undécimo introduce los servicios y recursos en la nube. Y duodécimo año consolida la administración avanzada de infraestructura tecnológica.");
             } else if (targetId === 'perfil') {
-                hablarDetallado(30, 250, "El perfil profesional te capacita para configurar ambientes cloud, administrar redes virtuales y automatizar procesos informáticos con estricta ética profesional y seguridad informática.");
+                hablarDetallado('right', 250, "El perfil profesional te capacita para configurar ambientes cloud, administrar redes virtuales y automatizar procesos informáticos con estricta ética profesional y seguridad informática.");
             }
         }
 
         function saludoCompleto() {
-            hablarDetallado(30, 200, "¡Hola! Soy tu guía oficial de CTP La Suiza. Haz clic en el botón de escuchar explicación completa para recorrer toda la página y conocer cada módulo en detalle.");
+            hablarDetallado('right', 180, "¡Hola! Soy tu guía oficial de CTP La Suiza. Haz clic en el botón de escuchar explicación completa para recorrer toda la página y conocer cada módulo en detalle.");
         }
 
         // Cambiar vista de pestañas
@@ -601,16 +608,16 @@
                 const targetId = btn.getAttribute('data-target'); 
                 cambiarVista(targetId);
 
-                if(targetId === 'inicio') hablarDetallado(30, 200, "Módulo de inicio seleccionado. Bienvenido a CTP La Suiza.");
-                if(targetId === 'malla') hablarDetallado(30, 250, "Malla curricular seleccionada. Explora las asignaturas técnicas por nivel.");
-                if(targetId === 'perfil') hablarDetallado(30, 250, "Perfil profesional seleccionado. Conoce tus futuras competencias técnicas.");
+                if(targetId === 'inicio') hablarDetallado('right', 180, "Módulo de inicio seleccionado. Bienvenido a CTP La Suiza.");
+                if(targetId === 'malla') hablarDetallado('left', 250, "Malla curricular seleccionada. Explora las asignaturas técnicas por nivel.");
+                if(targetId === 'perfil') hablarDetallado('right', 250, "Perfil profesional seleccionado. Conoce tus futuras competencias técnicas.");
             }); 
         }); 
 
         // Saludo inicial al cargar la página
         window.addEventListener('DOMContentLoaded', () => {
             setTimeout(() => {
-                hablarDetallado(30, 200, "Hola. Soy tu guía de CTP La Suiza. Haz clic en el botón de escuchar explicación completa para recorrer toda la página y conocer cada módulo en detalle.");
+                hablarDetallado('right', 180, "Hola. Soy tu guía de CTP La Suiza. Haz clic en el botón de escuchar explicación completa para recorrer toda la página y conocer cada módulo en detalle.");
             }, 1000);
         });
 
