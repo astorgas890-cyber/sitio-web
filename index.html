@@ -3,16 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Informática - Feria Vocacional</title>
+    <title>Servicios en la Nube - CTP La Suiza</title>
     <style>
         /* ================= VARIABLES Y RESET ================= */
         :root {
             --primary: #00d2ff;
             --secondary: #3a7bd5;
             --dark: #070b14;
-            --dark-card: rgba(30, 41, 59, 0.6);
+            --dark-card: rgba(30, 41, 59, 0.65);
             --text-light: #f8fafc;
             --text-muted: #cbd5e1;
+            --accent-glow: rgba(0, 210, 255, 0.25);
         }
 
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', system-ui, sans-serif; }
@@ -25,7 +26,7 @@
             min-height: 100vh;
         }
 
-        /* ================= FONDO ANIMADO ORIGINAL ================= */
+        /* ================= FONDO ANIMADO ================= */
         #canvas-bg {
             position: fixed;
             top: 0;
@@ -33,7 +34,7 @@
             width: 100vw;
             height: 100vh;
             z-index: -1;
-            opacity: 0.3; /* Opacidad original restaurada */
+            opacity: 0.25;
         }
 
         /* ================= BARRA DE NAVEGACIÓN ================= */
@@ -46,19 +47,19 @@
             justify-content: space-between;
             align-items: center;
             z-index: 1000;
-            background-color: rgba(7, 11, 20, 0.85);
+            background-color: rgba(7, 11, 20, 0.88);
             backdrop-filter: blur(12px);
             -webkit-backdrop-filter: blur(12px);
             border-bottom: 1px solid rgba(255, 255, 255, 0.05);
             box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
         }
         .logo { 
-            font-size: 1.6rem; 
+            font-size: 1.5rem; 
             font-weight: 800; 
             background: linear-gradient(to right, var(--primary), var(--secondary));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            letter-spacing: 1px; 
+            letter-spacing: 0.5px; 
         }
         .nav-links { display: flex; gap: 2rem; }
         .nav-links a {
@@ -86,11 +87,11 @@
         }
         .nav-links a:hover::after, .nav-links a.active-link::after { width: 100%; }
 
-        /* ================= SISTEMA DE PÁGINAS (VISTAS SEPARADAS) ================= */
+        /* ================= SISTEMA DE PÁGINAS (VISTAS) ================= */
         .page-view {
             display: none; 
             opacity: 0;
-            padding-top: 80px; 
+            padding-top: 100px; 
             min-height: 100vh;
             animation: fadeView 0.5s forwards ease-out;
         }
@@ -106,31 +107,41 @@
             100% { opacity: 1; transform: translateY(0) scale(1); }
         }
 
-        /* ================= HERO SECTION (CABECERA) ================= */
+        /* ================= HERO SECTION ================= */
         .hero {
             flex-direction: column;
             justify-content: center;
             align-items: center;
             text-align: center;
-            padding: 0 1rem;
-            background: radial-gradient(circle at center, rgba(58, 123, 213, 0.15) 0%, transparent 60%);
+            padding: 0 1.5rem;
+            background: radial-gradient(circle at center, rgba(58, 123, 213, 0.15) 0%, transparent 65%);
         }
         
-        #inicio.active-view h1 {
-            font-size: 4.5rem;
+        #inicio.active-view .institution-tag {
+            font-size: 1.1rem;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            color: var(--primary);
             margin-bottom: 1rem;
+            font-weight: 700;
+        }
+
+        #inicio.active-view h1 {
+            font-size: 3.8rem;
+            max-width: 1000px;
+            margin-bottom: 1.5rem;
             background: linear-gradient(135deg, #ffffff 0%, var(--primary) 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            text-shadow: 0px 0px 20px rgba(0, 210, 255, 0.2);
-            animation: fadeInDown 1s ease-out;
+            text-shadow: 0px 0px 25px var(--accent-glow);
+            line-height: 1.2;
         }
         #inicio.active-view p {
-            font-size: 1.3rem;
+            font-size: 1.25rem;
             color: var(--text-muted);
-            max-width: 650px;
+            max-width: 800px;
             margin-bottom: 2.5rem;
-            animation: fadeInUp 1s ease-out 0.3s both;
+            line-height: 1.7;
         }
         #inicio.active-view .btn-main {
             display: inline-block;
@@ -145,7 +156,6 @@
             border: none;
             transition: all 0.3s ease;
             box-shadow: 0 4px 15px rgba(0, 210, 255, 0.2);
-            animation: fadeIn 1s ease-out 0.6s both;
         }
         
         .btn-main:hover {
@@ -153,24 +163,11 @@
             box-shadow: 0 10px 25px rgba(0, 210, 255, 0.4);
         }
 
-        @keyframes fadeInDown {
-            from { opacity: 0; transform: translateY(-30px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        @keyframes fadeInUp {
-            from { opacity: 0; transform: translateY(30px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-
         /* ================= SECCIONES Y CONTENEDORES ================= */
         section { padding: 4rem 2rem 6rem; }
         .section-title {
             text-align: center;
-            font-size: 2.8rem;
+            font-size: 2.5rem;
             margin-bottom: 3.5rem;
             color: white;
             position: relative;
@@ -189,7 +186,7 @@
         }
         .container { max-width: 1200px; margin: 0 auto; }
 
-        /* ================= EFECTO GLASSMORPHISM EN TARJETAS ================= */
+        /* ================= TARJETAS GLASSMORPHISM ================= */
         .grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 2.5rem; }
         .grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(450px, 1fr)); gap: 2.5rem; }
         
@@ -203,208 +200,209 @@
             transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             position: relative;
             overflow: hidden;
+            padding: 2.5rem;
         }
         .card-glass:hover {
-            transform: translateY(-12px);
+            transform: translateY(-8px);
             border-color: rgba(0, 210, 255, 0.5);
             box-shadow: 0 15px 40px rgba(0, 210, 255, 0.15);
         }
 
-        /* ================= ÁREAS TÉCNICAS ================= */
-        .area-card { padding: 2.5rem; }
-        .area-card .icon { 
-            font-size: 3.5rem; 
-            margin-bottom: 1.5rem;
-            display: inline-block;
-            filter: drop-shadow(0 0 10px rgba(0, 210, 255, 0.4));
+        /* ================= COMPETENCIA GENERAL Y PERFIL ================= */
+        .competencia-box {
+            background: linear-gradient(135deg, rgba(30, 41, 59, 0.8), rgba(15, 23, 42, 0.9));
+            border-left: 5px solid var(--primary);
+            padding: 3rem;
+            border-radius: 16px;
+            margin-bottom: 3rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.4);
         }
-        .area-card h3 { font-size: 1.6rem; margin-bottom: 1rem; color: white; }
-        .area-card p { color: var(--text-muted); margin-bottom: 1.5rem; }
+        .competencia-box h3 {
+            font-size: 1.8rem;
+            color: white;
+            margin-bottom: 1rem;
+        }
+        .competencia-box p {
+            font-size: 1.15rem;
+            color: var(--text-muted);
+            line-height: 1.8;
+        }
 
-        .skill-list { list-style: none; }
-        .skill-list li { margin-bottom: 0.8rem; display: flex; align-items: center; font-size: 0.95rem; }
-        .skill-list li::before { content: '▹'; color: var(--primary); margin-right: 10px; font-size: 1.2rem; }
+        .skill-list { list-style: none; margin-top: 1.5rem; }
+        .skill-list li { margin-bottom: 0.9rem; display: flex; align-items: flex-start; font-size: 1rem; color: var(--text-muted); }
+        .skill-list li::before { content: '▹'; color: var(--primary); margin-right: 12px; font-size: 1.2rem; line-height: 1; }
 
-        /* ================= PROYECTOS ================= */
-        .project-card { display: flex; flex-direction: column; }
-        .project-img-placeholder {
-            height: 220px;
-            background: linear-gradient(135deg, rgba(15, 23, 42, 0.8), rgba(30, 41, 59, 0.8));
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 4rem;
-            border-bottom: 2px solid rgba(0, 210, 255, 0.2);
-            transition: all 0.4s ease;
-        }
-        .card-glass:hover .project-img-placeholder {
-            border-bottom-color: var(--primary);
-            background: linear-gradient(135deg, rgba(15, 23, 42, 0.9), rgba(58, 123, 213, 0.3));
-        }
-        .project-content { padding: 2.5rem; flex-grow: 1; }
-        .project-content h3 { color: white; margin-bottom: 1rem; font-size: 1.5rem; }
-        
-        .tags { margin-bottom: 1.2rem; }
-        .tag {
-            display: inline-block;
-            padding: 0.4rem 1rem;
-            background: rgba(0, 210, 255, 0.1);
+        /* ================= MALLA CURRICULAR (NIVELES) ================= */
+        .nivel-card h3 {
+            font-size: 1.8rem;
             color: var(--primary);
-            border: 1px solid rgba(0, 210, 255, 0.2);
+            margin-bottom: 1.5rem;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            padding-bottom: 0.8rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .subarea-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(15, 23, 42, 0.5);
+            padding: 1rem 1.2rem;
+            border-radius: 10px;
+            margin-bottom: 0.8rem;
+            border: 1px solid rgba(255,255,255,0.03);
+            transition: background 0.3s;
+        }
+        .subarea-item:hover {
+            background: rgba(0, 210, 255, 0.08);
+        }
+        .subarea-nombre {
+            font-weight: 600;
+            color: white;
+            font-size: 1rem;
+            padding-right: 1rem;
+        }
+        .subarea-horas {
+            background: rgba(0, 210, 255, 0.15);
+            color: var(--primary);
+            padding: 0.3rem 0.8rem;
             border-radius: 20px;
-            font-size: 0.8rem;
+            font-size: 0.85rem;
             font-weight: bold;
-            margin-right: 0.5rem;
-            margin-bottom: 0.5rem;
-            letter-spacing: 0.5px;
+            white-space: nowrap;
         }
 
         /* ================= RESPONSIVO ================= */
         @media (max-width: 768px) {
             .navbar { flex-direction: column; gap: 1rem; padding: 1rem; }
-            .hero h1 { font-size: 3rem; }
+            #inicio.active-view h1 { font-size: 2.5rem; }
             .nav-links { gap: 1rem; }
-            .page-view { padding-top: 120px; }
+            .page-view { padding-top: 130px; }
+            .competencia-box { padding: 1.5rem; }
         }
     </style>
 </head>
 <body>
 
-    <!-- Fondo de partículas original -->
+    <!-- Fondo de partículas -->
     <canvas id="canvas-bg"></canvas>
 
     <!-- Barra de Navegación -->
     <nav class="navbar" id="navbar">
-        <div class="logo">Feria Vocacional 2026</div>
+        <div class="logo">CTP La Suiza - Cloud Computing</div>
         <div class="nav-links">
             <a data-target="inicio" class="nav-btn active-link">Inicio</a>
-            <a data-target="areas" class="nav-btn">Áreas Técnicas</a>
-            <a data-target="proyectos" class="nav-btn">Proyectos</a>
+            <a data-target="malla" class="nav-btn">Malla Curricular</a>
+            <a data-target="perfil" class="nav-btn">Perfil Profesional</a>
         </div>
     </nav>
 
     <!-- ================= VISTA 1: INICIO ================= -->
     <section id="inicio" class="page-view hero active-view">
-        <h1>Configuración y Soporte</h1>
-        <p>Redes, Programación, Administración de Servidores y Almacenamiento en la Nube. Formando a los profesionales tecnológicos del mañana.</p>
-        <button data-target="areas" class="btn-main nav-btn">Descubrir Especialidad</button>
+        <div class="institution-tag">Colegio Técnico Profesional La Suiza</div>
+        <h1>Configuración y Administración de Servicios en la Nube</h1>
+        <p>Especialidad técnica orientada a formar profesionales capaces de ejecutar la configuración, operación y monitoreo de ambientes y servicios en la nube bajo estrictos estándares de seguridad, ética y mejora continua.</p>
+        <button data-target="malla" class="btn-main nav-btn">Ver Plan de Estudios</button>
     </section>
 
-    <!-- ================= VISTA 2: ÁREAS TÉCNICAS ================= -->
-    <section id="areas" class="page-view container">
-        <h2 class="section-title">¿Qué aprenderás con nosotros?</h2>
+    <!-- ================= VISTA 2: MALLA CURRICULAR ================= -->
+    <section id="malla" class="page-view container">
+        <h2 class="section-title">Malla Curricular por Nivel</h2>
+        
         <div class="grid-3">
-            
-            <div class="card-glass area-card">
-                <div class="icon">💻</div>
-                <h3>Lógica y Programación</h3>
-                <p>Desarrollo de software desde cero. Creación de aplicaciones interactivas, bases de datos y resolución de problemas con código.</p>
-                <ul class="skill-list">
-                    <li>Desarrollo web y CMS (Decap).</li>
-                    <li>Microcontroladores (Arduino / C++).</li>
-                    <li>Diseño de interfaces dinámicas.</li>
-                    <li>Algoritmia y lógica estructurada.</li>
-                </ul>
+            <!-- Décimo Nivel -->
+            <div class="card-glass nivel-card">
+                <h3>Décimo Nivel</h3>
+                <div class="subarea-item">
+                    <span class="subarea-nombre">Herramientas para la producción, transformación digital y seguridad de datos</span>
+                    <span class="subarea-horas">4 hrs</span>
+                </div>
+                <div class="subarea-item">
+                    <span class="subarea-nombre">Programación</span>
+                    <span class="subarea-horas">8 hrs</span>
+                </div>
+                <div class="subarea-item">
+                    <span class="subarea-nombre">Redes y virtualización</span>
+                    <span class="subarea-horas">4 hrs</span>
+                </div>
+                <div class="subarea-item">
+                    <span class="subarea-nombre">English Oriented to cloud computing</span>
+                    <span class="subarea-horas">4 hrs</span>
+                </div>
             </div>
 
-            <div class="card-glass area-card">
-                <div class="icon">🌐</div>
-                <h3>Redes y Soporte</h3>
-                <p>La columna vertebral corporativa. Diseño de infraestructuras de red seguras y mantenimiento de equipos a nivel profesional.</p>
-                <ul class="skill-list">
-                    <li>Cableado estructurado y subneteo.</li>
-                    <li>Configuración de Switches y Routers.</li>
-                    <li>Mantenimiento preventivo de Hardware.</li>
-                    <li>Implementación de protocolos seguros.</li>
-                </ul>
+            <!-- Undécimo Nivel -->
+            <div class="card-glass nivel-card">
+                <h3>Undécimo Nivel</h3>
+                <div class="subarea-item">
+                    <span class="subarea-nombre">Emprendimiento e innovación</span>
+                    <span class="subarea-horas">4 hrs</span>
+                </div>
+                <div class="subarea-item">
+                    <span class="subarea-nombre">Programación</span>
+                    <span class="subarea-horas">4 hrs</span>
+                </div>
+                <div class="subarea-item">
+                    <span class="subarea-nombre">Redes y virtualización</span>
+                    <span class="subarea-horas">4 hrs</span>
+                </div>
+                <div class="subarea-item">
+                    <span class="subarea-nombre">Servicios y recursos en la nube</span>
+                    <span class="subarea-horas">8 hrs</span>
+                </div>
+                <div class="subarea-item">
+                    <span class="subarea-nombre">English Oriented to cloud computing</span>
+                    <span class="subarea-horas">4 hrs</span>
+                </div>
             </div>
 
-            <div class="card-glass area-card">
-                <div class="icon">☁️</div>
-                <h3>Servidores y Sistemas</h3>
-                <p>Despliegue y administración de soluciones empresariales. Almacenamiento en red y gestión de servicios críticos.</p>
-                <ul class="skill-list">
-                    <li>Windows Server Datacenter.</li>
-                    <li>Sistemas Linux de bajo consumo.</li>
-                    <li>Implementación de Servidores NAS.</li>
-                    <li>Servicios web (IIS) locales.</li>
-                </ul>
+            <!-- Duodécimo Nivel -->
+            <div class="card-glass nivel-card">
+                <h3>Duodécimo Nivel</h3>
+                <div class="subarea-item">
+                    <span class="subarea-nombre">Servicios en la nube</span>
+                    <span class="subarea-horas">8 hrs</span>
+                </div>
+                <div class="subarea-item">
+                    <span class="subarea-nombre">Programación</span>
+                    <span class="subarea-horas">4 hrs</span>
+                </div>
+                <div class="subarea-item">
+                    <span class="subarea-nombre">Redes y virtualización</span>
+                    <span class="subarea-horas">8 hrs</span>
+                </div>
+                <div class="subarea-item">
+                    <span class="subarea-nombre">English Oriented to cloud computing</span>
+                    <span class="subarea-horas">4 hrs</span>
+                </div>
             </div>
-
-            <div class="card-glass area-card">
-                <div class="icon">🇬🇧</div>
-                <h3>English Oriented to Network Configuration and Operating Sistem</h3>
-                <p>Dominio del idioma inglés técnico aplicado directamente a la configuración de sistemas operativos, comandos y documentación tecnológica.</p>
-                <ul class="skill-list">
-                    <li>Technical vocabulary for IT systems.</li>
-                    <li>Command line and OS documentation.</li>
-                    <li>Reading and interpreting error logs.</li>
-                    <li>Global technological communication.</li>
-                </ul>
-            </div>
-
         </div>
     </section>
 
-    <!-- ================= VISTA 3: PROYECTOS ================= -->
-    <section id="proyectos" class="page-view container">
-        <h2 class="section-title">Proyectos Destacados</h2>
-        <div class="grid-2">
-            
-            <div class="card-glass project-card">
-                <div class="project-img-placeholder">🎮</div>
-                <div class="project-content">
-                    <div class="tags">
-                        <span class="tag">Arduino</span>
-                        <span class="tag">C++</span>
-                    </div>
-                    <h3>Consola Retro con Arduino</h3>
-                    <p>Desarrollo de videojuegos clásicos como Flappy Bird, Snake y sistemas RPG en consola utilizando una placa Arduino integrada con una pantalla LCD Keypad Shield 1602. Gestión completa de lógica de colisiones y memoria.</p>
-                </div>
-            </div>
+    <!-- ================= VISTA 3: PERFIL PROFESIONAL ================= -->
+    <section id="perfil" class="page-view container">
+        <h2 class="section-title">Perfil de Salida y Competencias</h2>
+        
+        <div class="competencia-box">
+            <h3>Competencia General</h3>
+            <p>Ejecutar la configuración, operación y monitoreo de ambientes y servicios en la nube, implementando seguridad, mejores prácticas y mejora continua, conforme instrucciones recibidas, actuando con ética a nivel personal y profesional, participando en equipos de trabajo en la solución de problemas, con comunicación asertiva y promoviendo un ambiente de sana convivencia.</p>
+        </div>
 
-            <div class="card-glass project-card">
-                <div class="project-img-placeholder">🖥️</div>
-                <div class="project-content">
-                    <div class="tags">
-                        <span class="tag">Windows Server</span>
-                        <span class="tag">IIS</span>
-                    </div>
-                    <h3>Infraestructura de Servidor Local</h3>
-                    <p>Implementación de un Windows Server Datacenter actuando como servidor web (IIS) para alojar sitios en red local, configurado simultáneamente como servidor de almacenamiento NAS para la gestión documental de la especialidad.</p>
-                </div>
-            </div>
-
-            <div class="card-glass project-card">
-                <div class="project-img-placeholder">📡</div>
-                <div class="project-content">
-                    <div class="tags">
-                        <span class="tag">Cisco</span>
-                        <span class="tag">Redes IPv6</span>
-                    </div>
-                    <h3>Enrutamiento y Configuración de Red</h3>
-                    <p>Administración de topologías de red empresariales. Implementación de protocolos de comunicación seguros y despliegue de direccionamiento IPv6 directamente sobre la interfaz de línea de comandos de switches y routers Cisco.</p>
-                </div>
-            </div>
-
-            <div class="card-glass project-card">
-                <div class="project-img-placeholder">🍓</div>
-                <div class="project-content">
-                    <div class="tags">
-                        <span class="tag">Raspberry Pi</span>
-                        <span class="tag">Linux (DietPi)</span>
-                    </div>
-                    <h3>Servidor Linux de Bajo Consumo</h3>
-                    <p>Despliegue de un entorno de servidor eficiente utilizando hardware Raspberry Pi con el sistema operativo DietPi. Configuración de la terminal para alojar aplicaciones locales y experimentación con plataformas de IA como Ollama.</p>
-                </div>
-            </div>
-
+        <div class="card-glass">
+            <h3 style="color: white; font-size: 1.5rem; margin-bottom: 0.5rem;">Competencias Específicas (Perfil de Salida)</h3>
+            <p style="color: var(--text-muted); margin-bottom: 1rem;">Habilidades técnicas clave desarrolladas al concluir la especialidad:</p>
+            <ul class="skill-list">
+                <li>Configurar requerimientos de ambientes en la nube, según necesidades establecidas y procedimientos de seguridad.</li>
+                <li>Configurar redes virtuales, conforme requerimientos establecidos y procedimientos de seguridad.</li>
+                <li>Programar scripts de automatización de tareas de configuración en la nube, según requerimientos establecidos, procedimientos de seguridad y buenas prácticas.</li>
+            </ul>
         </div>
     </section>
 
     <!-- ================= SCRIPTS ================= -->
     <script>
-        // 1. SISTEMA DE NAVEGACIÓN TIPO SPA (Single Page Application)
+        // 1. SISTEMA DE NAVEGACIÓN TIPO SPA
         const navButtons = document.querySelectorAll('.nav-btn');
         const pages = document.querySelectorAll('.page-view');
 
@@ -420,7 +418,7 @@
                 if(btn.parentElement.classList.contains('nav-links')) {
                     btn.classList.add('active-link');
                 } else {
-                    document.querySelector('.nav-links [data-target="areas"]').classList.add('active-link');
+                    document.querySelector('.nav-links [data-target="malla"]').classList.add('active-link');
                 }
 
                 pages.forEach(page => {
@@ -431,15 +429,15 @@
                         }, 50);
                     }
                 });
+                window.scrollTo({ top: 0, behavior: 'smooth' });
             });
         });
 
-        // 2. FONDO DE PARTÍCULAS INTERACTIVAS (CANVAS HTML5 ORIGINAL)
+        // 2. FONDO DE PARTÍCULAS INTERACTIVAS (CANVAS HTML5)
         const canvas = document.getElementById('canvas-bg');
         const ctx = canvas.getContext('2d');
         let particlesArray;
 
-        // Ajustar tamaño del canvas a la pantalla
         canvas.width = window.innerWidth;
         canvas.height = window.innerHeight;
         window.addEventListener('resize', () => {
@@ -448,21 +446,18 @@
             init();
         });
 
-        // Crear objeto Partícula
         class Particle {
             constructor(x, y, directionX, directionY, size, color) {
                 this.x = x; this.y = y;
                 this.directionX = directionX; this.directionY = directionY;
                 this.size = size; this.color = color;
             }
-            // Dibujar la partícula
             draw() {
                 ctx.beginPath();
                 ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2, false);
                 ctx.fillStyle = this.color;
                 ctx.fill();
             }
-            // Mover la partícula y rebotar en los bordes
             update() {
                 if (this.x > canvas.width || this.x < 0) this.directionX = -this.directionX;
                 if (this.y > canvas.height || this.y < 0) this.directionY = -this.directionY;
@@ -472,7 +467,6 @@
             }
         }
 
-        // Llenar el arreglo con partículas
         function init() {
             particlesArray = [];
             let numberOfParticles = (canvas.height * canvas.width) / 9000;
@@ -487,7 +481,6 @@
             }
         }
 
-        // Conectar las partículas con líneas si están cerca
         function connect() {
             let opacityValue = 1;
             for (let a = 0; a < particlesArray.length; a++) {
@@ -507,7 +500,6 @@
             }
         }
 
-        // Bucle de animación
         function animate() {
             requestAnimationFrame(animate);
             ctx.clearRect(0, 0, innerWidth, innerHeight);
