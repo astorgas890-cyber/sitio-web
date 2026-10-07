@@ -24,6 +24,7 @@
             line-height: 1.6;  
             overflow-x: hidden;  
             min-height: 100vh; 
+            position: relative;
         } 
 
         /* ================= FONDO ANIMADO ================= */ 
@@ -91,7 +92,7 @@
         .page-view { 
             display: none;  
             opacity: 0; 
-            padding-top: 100px;  
+            padding-top: 120px;  
             min-height: 100vh; 
             animation: fadeView 0.5s forwards ease-out; 
         } 
@@ -299,183 +300,168 @@
             white-space: nowrap; 
         } 
 
-        /* ================= SUPERHÉROE ASISTENTE ANIMADO (EN PANTALLA) ================= */ 
-        #superhero-assistant {
-            position: fixed;
-            bottom: 25px;
-            right: 25px;
+        /* ================= SUPERHÉROE VIAJERO Y CAMINANTE ================= */ 
+        #traveling-superhero {
+            position: absolute;
+            top: 150px;
+            left: 50px;
             z-index: 9999;
             display: flex;
             align-items: flex-end;
-            gap: 15px;
+            gap: 12px;
+            transition: all 1s cubic-bezier(0.25, 1, 0.5, 1); /* Movimiento suave por la página */
             pointer-events: none;
-            transition: transform 0.4s ease-in-out;
         }
-        #superhero-assistant > * {
+        #traveling-superhero > * {
             pointer-events: auto;
         }
 
-        /* Bocadillo de diálogo */
-        .hero-bubble {
+        /* Bocadillo de diálogo del viajero */
+        .travel-bubble {
             background: rgba(15, 23, 42, 0.95);
             backdrop-filter: blur(12px);
-            border: 1px solid rgba(0, 210, 255, 0.5);
+            border: 1px solid rgba(0, 210, 255, 0.6);
             color: white;
-            padding: 15px 20px;
-            border-radius: 18px;
-            max-width: 290px;
-            font-size: 0.95rem;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+            padding: 12px 18px;
+            border-radius: 16px;
+            max-width: 260px;
+            font-size: 0.9rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7);
             position: relative;
-            animation: fadeInBubble 0.3s ease-out forwards;
         }
-        @keyframes fadeInBubble {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        .hero-bubble::after {
+        .travel-bubble::after {
             content: '';
             position: absolute;
-            right: -8px;
-            bottom: 25px;
+            left: -8px;
+            bottom: 20px;
             width: 0;
             height: 0;
             border-top: 8px solid transparent;
             border-bottom: 8px solid transparent;
-            border-left: 8px solid rgba(15, 23, 42, 0.95);
+            border-right: 8px solid rgba(15, 23, 42, 0.95);
         }
 
         /* Cuerpo del Superhéroe */
-        .superhero-puppet {
+        .hero-puppet-body {
             position: relative;
-            width: 100px;
-            height: 120px;
+            width: 90px;
+            height: 110px;
             cursor: pointer;
             filter: drop-shadow(0 5px 20px rgba(0, 210, 255, 0.5));
-            transition: transform 0.3s;
-        }
-        .superhero-puppet:hover {
-            transform: scale(1.08);
         }
 
-        /* Torso / Traje */
-        .hero-torso {
+        .hero-torso-box {
             position: absolute;
             bottom: 0;
             left: 15px;
-            width: 70px;
-            height: 60px;
+            width: 60px;
+            height: 55px;
             background: linear-gradient(135deg, #1e293b, #0f172a);
             border: 3px solid var(--primary);
-            border-radius: 30px 30px 15px 15px;
+            border-radius: 25px 25px 12px 12px;
             display: flex;
             justify-content: center;
             align-items: center;
         }
-        .hero-emblem {
-            font-size: 1.5rem;
-        }
+        .hero-emblem-icon { font-size: 1.3rem; }
 
-        /* Capa */
-        .hero-cape {
+        .hero-cape-fly {
             position: absolute;
             bottom: 5px;
-            left: 5px;
-            width: 90px;
-            height: 50px;
+            right: 5px;
+            width: 70px;
+            height: 45px;
             background: linear-gradient(135deg, #ef4444, #b91c1c);
-            border-radius: 20px;
+            border-radius: 15px;
             z-index: -1;
-            transform: rotate(-5deg);
-            animation: capeWind 2s ease-in-out infinite alternate;
+            transform: rotate(10deg);
+            animation: capeMotion 1.5s ease-in-out infinite alternate;
         }
-        @keyframes capeWind {
-            0% { transform: rotate(-5deg) skewX(0deg); }
-            100% { transform: rotate(2deg) skewX(5deg); }
+        @keyframes capeMotion {
+            0% { transform: rotate(10deg) scaleX(1); }
+            100% { transform: rotate(15deg) scaleX(1.1); }
         }
 
-        /* Cabeza de Superhéroe con Máscara */
-        .hero-head {
+        .hero-head-box {
             position: absolute;
             top: 0;
             left: 8px;
-            width: 84px;
-            height: 65px;
+            width: 74px;
+            height: 58px;
             background: linear-gradient(135deg, #3a7bd5, #00d2ff);
-            border-radius: 35px 35px 25px 25px;
+            border-radius: 30px 30px 22px 22px;
             border: 3px solid #ffffff;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            box-shadow: 0 3px 12px rgba(0,0,0,0.3);
         }
 
-        /* Ojos que parpadean */
-        .hero-eyes {
+        /* Ojos parpadeantes */
+        .hero-eyes-row {
             position: absolute;
-            top: 20px;
-            left: 16px;
+            top: 18px;
+            left: 14px;
             display: flex;
-            gap: 16px;
+            gap: 14px;
         }
-        .hero-eye {
-            width: 13px;
-            height: 15px;
+        .hero-eye-dot {
+            width: 11px;
+            height: 13px;
             background: #ffffff;
             border-radius: 50%;
             position: relative;
             overflow: hidden;
-            animation: blinkHero 4s infinite;
+            animation: blinkTraveler 4s infinite;
         }
-        .hero-pupil {
+        .hero-pupil-dot {
             position: absolute;
-            top: 3px;
-            left: 3px;
-            width: 5px;
-            height: 5px;
+            top: 2px;
+            left: 2px;
+            width: 4px;
+            height: 4px;
             background: #070b14;
             border-radius: 50%;
         }
-        @keyframes blinkHero {
+        @keyframes blinkTraveler {
             0%, 96%, 100% { transform: scaleY(1); }
             98% { transform: scaleY(0.1); }
         }
 
-        /* Boca animada para hablar */
-        .hero-mouth {
+        /* Boca que se mueve al hablar */
+        .hero-mouth-line {
             position: absolute;
-            bottom: 12px;
-            left: 34px;
-            width: 16px;
-            height: 6px;
+            bottom: 10px;
+            left: 29px;
+            width: 14px;
+            height: 5px;
             background: #070b14;
-            border-radius: 0 0 10px 10px;
-            transition: all 0.1s ease;
+            border-radius: 0 0 8px 8px;
         }
-        .superhero-puppet.speaking .hero-mouth {
-            animation: speakHeroMouth 0.2s infinite alternate;
+        .hero-puppet-body.speaking .hero-mouth-line {
+            animation: speakMouthTravel 0.2s infinite alternate;
         }
-        @keyframes speakHeroMouth {
-            0% { height: 4px; width: 12px; }
-            100% { height: 12px; width: 16px; background: #ff3366; border-radius: 50%; }
+        @keyframes speakMouthTravel {
+            0% { height: 3px; width: 10px; }
+            100% { height: 10px; width: 14px; background: #ff3366; border-radius: 50%; }
         }
 
-        /* Mano señaladora */
-        .hero-hand {
+        /* Mano señaladora activa */
+        .hero-pointing-hand {
             position: absolute;
-            top: 50px;
-            right: -18px;
-            font-size: 1.8rem;
+            top: 45px;
+            right: -16px;
+            font-size: 1.6rem;
             display: none;
         }
-        .superhero-puppet.pointing .hero-hand {
+        .hero-puppet-body.pointing .hero-pointing-hand {
             display: block;
-            animation: pointAction 0.5s infinite alternate ease-in-out;
+            animation: pointMotion 0.4s infinite alternate ease-in-out;
         }
-        @keyframes pointAction {
-            0% { transform: translateX(0) rotate(-20deg); }
-            100% { transform: translateX(8px) rotate(0deg); }
+        @keyframes pointMotion {
+            0% { transform: translateX(0) rotate(-25deg); }
+            100% { transform: translateX(8px) rotate(-5deg); }
         }
 
-        /* Botón personalizado para invocar al superhéroe en los módulos */
-        .btn-super-explain {
+        /* Botón de tour guiado o explicación */
+        .btn-tour {
             background: rgba(0, 210, 255, 0.15);
             color: var(--primary);
             border: 1px solid rgba(0, 210, 255, 0.4);
@@ -490,7 +476,7 @@
             margin-top: 1rem;
             transition: all 0.3s ease;
         }
-        .btn-super-explain:hover {
+        .btn-tour:hover {
             background: var(--primary);
             color: var(--dark);
             transform: translateY(-3px);
@@ -504,9 +490,6 @@
             .nav-links { gap: 1rem; } 
             .page-view { padding-top: 130px; } 
             .competencia-box { padding: 1.5rem; } 
-            #superhero-assistant { bottom: 15px; right: 15px; }
-            .superhero-puppet { width: 85px; height: 105px; }
-            .hero-bubble { max-width: 220px; font-size: 0.85rem; }
         } 
     </style> 
 </head> 
@@ -520,334 +503,4 @@
         <div class="logo">☁️ CTP La Suiza - Cloud</div> 
         <div class="nav-links"> 
             <a data-target="inicio" class="nav-btn active-link">Inicio</a> 
-            <a data-target="malla" class="nav-btn">Malla Curricular</a> 
-            <a data-target="perfil" class="nav-btn">Perfil Profesional</a> 
-        </div> 
-    </nav> 
-
-    <!-- ================= VISTA 1: INICIO ================= --> 
-    <section id="inicio" class="page-view hero active-view"> 
-        <div class="hero-icon">🌩️</div> 
-        <div class="institution-tag">Colegio Técnico Profesional La Suiza</div> 
-        <h1>Configuración y Administración de Servicios en la Nube</h1> 
-        <p>Especialidad técnica orientada a formar profesionales capaces de ejecutar la configuración, operación y monitoreo de ambientes y servicios en la nube bajo estrictos estándares de seguridad, ética y mejora continua.</p> 
-        
-        <div style="display: flex; gap: 1rem; justify-content: center; align-items: center; flex-wrap: wrap;">
-            <button data-target="malla" class="btn-main nav-btn">Ver Plan de Estudios 🚀</button>
-            <button class="btn-super-explain" onclick="explicarModulo('inicio')">
-                🦸‍♂️ ¡Superhéroe, explica el Inicio!
-            </button>
-        </div>
-    </section> 
-
-    <!-- ================= VISTA 2: MALLA CURRICULAR ================= --> 
-    <section id="malla" class="page-view container"> 
-        <h2 class="section-title">Malla Curricular por Nivel</h2> 
-          
-        <div style="text-align: center; margin-bottom: 2rem;">
-            <button class="btn-super-explain" onclick="explicarModulo('malla')">
-                🦸‍♂️ ¡Superhéroe, explica la Malla Curricular!
-            </button>
-        </div>
-
-        <div class="grid-3"> 
-            <!-- Décimo Nivel --> 
-            <div class="card-glass nivel-card"> 
-                <h3>Décimo Nivel <span>🔟</span></h3> 
-                <div class="subarea-item"> 
-                    <span class="subarea-nombre">💻 Herramientas para la producción, transformación digital y seguridad de datos</span> 
-                    <span class="subarea-horas">4 hrs</span> 
-                </div> 
-                <div class="subarea-item"> 
-                    <span class="subarea-nombre">⚡ Programación</span> 
-                    <span class="subarea-horas">8 hrs</span> 
-                </div> 
-                <div class="subarea-item"> 
-                    <span class="subarea-nombre">🌐 Redes y virtualización</span> 
-                    <span class="subarea-horas">4 hrs</span> 
-                </div> 
-                <div class="subarea-item"> 
-                    <span class="subarea-nombre">🇬🇧 English Oriented to cloud computing</span> 
-                    <span class="subarea-horas">4 hrs</span> 
-                </div> 
-            </div> 
-
-            <!-- Undécimo Nivel --> 
-            <div class="card-glass nivel-card"> 
-                <h3>Undécimo Nivel <span>1️⃣1️⃣</span></h3> 
-                <div class="subarea-item"> 
-                    <span class="subarea-nombre">💡 Emprendimiento e innovación</span> 
-                    <span class="subarea-horas">4 hrs</span> 
-                </div> 
-                <div class="subarea-item"> 
-                    <span class="subarea-nombre">⚡ Programación</span> 
-                    <span class="subarea-horas">4 hrs</span> 
-                </div> 
-                <div class="subarea-item"> 
-                    <span class="subarea-nombre">🌐 Redes y virtualización</span> 
-                    <span class="subarea-horas">4 hrs</span> 
-                </div> 
-                <div class="subarea-item"> 
-                    <span class="subarea-nombre">☁️ Servicios y recursos en la nube</span> 
-                    <span class="subarea-horas">8 hrs</span> 
-                </div> 
-                <div class="subarea-item"> 
-                    <span class="subarea-nombre">🇬🇧 English Oriented to cloud computing</span> 
-                    <span class="subarea-horas">4 hrs</span> 
-                </div> 
-            </div> 
-
-            <!-- Duodécimo Nivel --> 
-            <div class="card-glass nivel-card"> 
-                <h3>Duodécimo Nivel <span>1️⃣2️⃣</span></h3> 
-                <div class="subarea-item"> 
-                    <span class="subarea-nombre">☁️ Servicios en la nube</span> 
-                    <span class="subarea-horas">8 hrs</span> 
-                </div> 
-                <div class="subarea-item"> 
-                    <span class="subarea-nombre">⚡ Programación</span> 
-                    <span class="subarea-horas">4 hrs</span> 
-                </div> 
-                <div class="subarea-item"> 
-                    <span class="subarea-nombre">🌐 Redes y virtualización</span> 
-                    <span class="subarea-horas">8 hrs</span> 
-                </div> 
-                <div class="subarea-item"> 
-                    <span class="subarea-nombre">🇬🇧 English Oriented to cloud computing</span> 
-                    <span class="subarea-horas">4 hrs</span> 
-                </div> 
-            </div> 
-        </div> 
-    </section> 
-
-    <!-- ================= VISTA 3: PERFIL PROFESIONAL ================= --> 
-    <section id="perfil" class="page-view container"> 
-        <h2 class="section-title">Perfil de Competencias</h2> 
-          
-        <div style="text-align: center; margin-bottom: 2rem;">
-            <button class="btn-super-explain" onclick="explicarModulo('perfil')">
-                🦸‍♂️ ¡Superhéroe, explica el Perfil Profesional!
-            </button>
-        </div>
-
-        <div class="competencia-box"> 
-            <h3>🛡️ Competencia General</h3> 
-            <p>Ejecutar la configuración, operación y monitoreo de ambientes y servicios en la nube, implementando seguridad, mejores prácticas y mejora continua, conforme instrucciones recibidas, actuando con ética a nivel personal y profesional, participando en equipos de trabajo en la solución de problemas, con comunicación asertiva y promoviendo un ambiente de sana convivencia.</p> 
-        </div> 
-
-        <div class="card-glass"> 
-            <h3 style="color: white; font-size: 1.5rem; margin-bottom: 0.5rem; display: flex; align-items: center; gap: 10px;">📋 Competencias Específicas</h3> 
-            <p style="color: var(--text-muted); margin-bottom: 1.5rem;">Habilidades técnicas clave desarrolladas al concluir la especialidad:</p> 
-            <ul class="skill-list"> 
-                <li><span class="icon-bullet">🔹</span>Configurar requerimientos de ambientes en la nube, según necesidades establecidas y procedimientos de seguridad.</li> 
-                <li><span class="icon-bullet">🔹</span>Configurar redes virtuales, conforme requerimientos establecidos y procedimientos de seguridad.</li> 
-                <li><span class="icon-bullet">🔹</span>Programar scripts de automatización de tareas de configuración en la nube, según requerimientos establecidos, procedimientos de seguridad y buenas prácticas.</li> 
-            </ul> 
-        </div> 
-    </section> 
-
-    <!-- ================= WIDGET DEL SUPERHÉROE ANIMADO ================= -->
-    <div id="superhero-assistant">
-        <div id="hero-bubble" class="hero-bubble">¡Hola! Soy tu superhéroe guía de CTP La Suiza. Explora las secciones o presiona los botones de explicación.</div>
-        
-        <div class="superhero-puppet" id="superhero-puppet" onclick="saludoSuperheroe()">
-            <!-- Capa -->
-            <div class="hero-cape"></div>
-            
-            <!-- Cabeza -->
-            <div class="hero-head">
-                <div class="hero-eyes">
-                    <div class="hero-eye"><div class="hero-pupil"></div></div>
-                    <div class="hero-eye"><div class="hero-pupil"></div></div>
-                </div>
-                <div class="hero-mouth"></div>
-            </div>
-
-            <!-- Torso -->
-            <div class="hero-torso">
-                <div class="hero-emblem">⚡</div>
-            </div>
-
-            <!-- Mano que señala -->
-            <div class="hero-hand" id="hero-hand">👉</div>
-        </div>
-    </div>
-
-    <!-- ================= SCRIPTS ================= --> 
-    <script> 
-        // 1. TEXTOS DE EXPLICACIÓN AUTOMÁTICA POR MÓDULO
-        const explicacionesModulos = {
-            inicio: "¡Bienvenidos al CTP La Suiza! Esta especialidad en servicios en la nube te prepara para configurar, operar y monitorear ambientes tecnológicos con los más altos estándares de seguridad y tecnología.",
-            malla: "Esta es la malla curricular completa. Desde décimo nivel con programación y redes, pasando por undécimo, hasta duodécimo año donde dominarás por completo los servicios avanzados en la nube.",
-            perfil: "En el perfil profesional verás las competencias clave: configurar ambientes virtuales, diseñar redes seguras y programar scripts de automatización con total ética y profesionalismo."
-        };
-
-        function decirTexto(texto) {
-            if (!('speechSynthesis' in window)) {
-                alert("Tu navegador no soporta síntesis de voz.");
-                return;
-            }
-
-            window.speechSynthesis.cancel();
-
-            const utterance = new SpeechSynthesisUtterance(texto);
-            utterance.lang = 'es-ES';
-            utterance.rate = 1.05;
-
-            const puppet = document.getElementById('superhero-puppet');
-            const bubble = document.getElementById('hero-bubble');
-            const hand = document.getElementById('hero-hand');
-
-            bubble.innerText = texto;
-            bubble.style.display = 'block';
-            puppet.classList.add('speaking');
-            hand.classList.add('pointing');
-
-            utterance.onend = function() {
-                puppet.classList.remove('speaking');
-                hand.classList.remove('pointing');
-            };
-
-            utterance.onerror = function() {
-                puppet.classList.remove('speaking');
-                hand.classList.remove('pointing');
-            };
-
-            window.speechSynthesis.speak(utterance);
-        }
-
-        function explicarModulo(idModulo) {
-            if (explicacionesModulos[idModulo]) {
-                decirTexto(explicacionesModulos[idModulo]);
-            }
-        }
-
-        function saludoSuperheroe() {
-            decirTexto("¡Hola de nuevo! Recuerda hacer clic en los botones de explicación de cada sección para que conozcas todos los detalles de nuestra especialidad.");
-        }
-
-        // Saludo inicial automático al cargar la página
-        window.addEventListener('DOMContentLoaded', () => {
-            setTimeout(() => {
-                decirTexto("¡Hola! Soy tu superhéroe guía de CTP La Suiza. Te acompañaré a descubrir todo sobre nuestra especialidad en Servicios en la Nube.");
-            }, 1000);
-        });
-
-
-        // 2. SISTEMA DE NAVEGACIÓN TIPO SPA Y CAMBIO DE VISTA AUTOMÁTICO
-        const navButtons = document.querySelectorAll('.nav-btn'); 
-        const pages = document.querySelectorAll('.page-view'); 
-
-        navButtons.forEach(btn => { 
-            btn.addEventListener('click', (e) => { 
-                e.preventDefault(); 
-                const targetId = btn.getAttribute('data-target'); 
-
-                document.querySelectorAll('.nav-links .nav-btn').forEach(nav => { 
-                    nav.classList.remove('active-link'); 
-                }); 
-                 
-                if(btn.parentElement.classList.contains('nav-links')) { 
-                    btn.classList.add('active-link'); 
-                } else { 
-                    document.querySelector('.nav-links [data-target="malla"]').classList.add('active-link'); 
-                } 
-
-                pages.forEach(page => { 
-                    page.classList.remove('active-view'); 
-                    if(page.id === targetId) { 
-                        setTimeout(() => { 
-                            page.classList.add('active-view'); 
-                        }, 50); 
-                    } 
-                }); 
-                window.scrollTo({ top: 0, behavior: 'smooth' }); 
-
-                // Hacer que el superhéroe explique automáticamente al cambiar de sección
-                setTimeout(() => {
-                    explicarModulo(targetId);
-                }, 400);
-            }); 
-        }); 
-
-        // 3. FONDO DE PARTÍCULAS INTERACTIVAS (CANVAS HTML5) 
-        const canvas = document.getElementById('canvas-bg'); 
-        const ctx = canvas.getContext('2d'); 
-        let particlesArray; 
-
-        canvas.width = window.innerWidth; 
-        canvas.height = window.innerHeight; 
-        window.addEventListener('resize', () => { 
-            canvas.width = window.innerWidth; 
-            canvas.height = window.innerHeight; 
-            init(); 
-        }); 
-
-        class Particle { 
-            constructor(x, y, directionX, directionY, size, color) { 
-                this.x = x; this.y = y; 
-                this.directionX = directionX; this.directionY = directionY; 
-                this.size = size; this.color = color; 
-            } 
-            draw() { 
-                ctx.beginPath(); 
-                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2, false); 
-                ctx.fillStyle = this.color; 
-                ctx.fill(); 
-            } 
-            update() { 
-                if (this.x > canvas.width || this.x < 0) this.directionX = -this.directionX; 
-                if (this.y > canvas.height || this.y < 0) this.directionY = -this.directionY; 
-                this.x += this.directionX; 
-                this.y += this.directionY; 
-                this.draw(); 
-            } 
-        } 
-
-        function init() { 
-            particlesArray = []; 
-            let numberOfParticles = (canvas.height * canvas.width) / 9000; 
-            for (let i = 0; i < numberOfParticles; i++) { 
-                let size = (Math.random() * 2) + 1; 
-                let x = (Math.random() * ((innerWidth - size * 2) - (size * 2)) + size * 2); 
-                let y = (Math.random() * ((innerHeight - size * 2) - (size * 2)) + size * 2); 
-                let directionX = (Math.random() * 1) - 0.5; 
-                let directionY = (Math.random() * 1) - 0.5; 
-                let color = 'rgba(0, 210, 255, 0.5)'; 
-                particlesArray.push(new Particle(x, y, directionX, directionY, size, color)); 
-            } 
-        } 
-
-        function connect() { 
-            let opacityValue = 1; 
-            for (let a = 0; a < particlesArray.length; a++) { 
-                for (let b = a; b < particlesArray.length; b++) { 
-                    let distance = ((particlesArray[a].x - particlesArray[b].x) * (particlesArray[a].x - particlesArray[b].x)) +  
-                                   ((particlesArray[a].y - particlesArray[b].y) * (particlesArray[a].y - particlesArray[b].y)); 
-                    if (distance < (canvas.width / 7) * (canvas.height / 7)) { 
-                        opacityValue = 1 - (distance / 20000); 
-                        ctx.strokeStyle = 'rgba(0, 210, 255,' + opacityValue + ')'; 
-                        ctx.lineWidth = 1; 
-                        ctx.beginPath(); 
-                        ctx.moveTo(particlesArray[a].x, particlesArray[a].y); 
-                        ctx.lineTo(particlesArray[b].x, particlesArray[b].y); 
-                        ctx.stroke(); 
-                    } 
-                } 
-            } 
-        } 
-
-        function animate() { 
-            requestAnimationFrame(animate); 
-            ctx.clearRect(0, 0, innerWidth, innerHeight); 
-            for (let i = 0; i < particlesArray.length; i++) { 
-                particlesArray[i].update(); 
-            } 
-            connect(); 
-        } 
-
-        init(); 
-        animate(); 
-    </script> 
-</body> 
-</html>
+            <a data-target="malla" class="nav-btn">Malla Curricular</a>
