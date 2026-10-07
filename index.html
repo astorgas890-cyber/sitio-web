@@ -503,4 +503,344 @@
         <div class="logo">☁️ CTP La Suiza - Cloud</div> 
         <div class="nav-links"> 
             <a data-target="inicio" class="nav-btn active-link">Inicio</a> 
-            <a data-target="malla" class="nav-btn">Malla Curricular</a>
+            <a data-target="malla" class="nav-btn">Malla Curricular</a> 
+            <a data-target="perfil" class="nav-btn">Perfil Profesional</a> 
+        </div> 
+    </nav> 
+
+    <!-- ================= VISTA 1: INICIO ================= --> 
+    <section id="inicio" class="page-view hero active-view" data-x="80" data-y="250"> 
+        <div class="hero-icon">🌩️</div> 
+        <div class="institution-tag">Colegio Técnico Profesional La Suiza</div> 
+        <h1>Configuración y Administración de Servicios en la Nube</h1> 
+        <p>Especialidad técnica orientada a formar profesionales capaces de ejecutar la configuración, operación y monitoreo de ambientes y servicios en la nube bajo estrictos estándares de seguridad y ética profesional.</p> 
+        
+        <div style="display: flex; gap: 1rem; justify-content: center; align-items: center; flex-wrap: wrap;">
+            <button data-target="malla" class="btn-main nav-btn">Ver Plan de Estudios 🚀</button>
+            <button class="btn-tour" onclick="iniciarTourGuiado()">
+                🦸‍♂️ ¡Iniciar Tour Guiado por la Página!
+            </button>
+        </div>
+    </section> 
+
+    <!-- ================= VISTA 2: MALLA CURRICULAR ================= --> 
+    <section id="malla" class="page-view container" data-x="80" data-y="180"> 
+        <h2 class="section-title">Malla Curricular por Nivel</h2> 
+          
+        <div style="text-align: center; margin-bottom: 2rem;">
+            <button class="btn-tour" onclick="visitarSeccion('malla', 'Aquí tienes la malla curricular completa: décimo nivel con programación y redes, undécimo con servicios en la nube, y duodécimo año enfocado totalmente en la administración avanzada.')">
+                🦸‍♂️ Que el Superhéroe explique la Malla
+            </button>
+        </div>
+
+        <div class="grid-3"> 
+            <!-- Décimo Nivel --> 
+            <div class="card-glass nivel-card"> 
+                <h3>Décimo Nivel <span>🔟</span></h3> 
+                <div class="subarea-item"> 
+                    <span class="subarea-nombre">💻 Herramientas para la producción y seguridad de datos</span> 
+                    <span class="subarea-horas">4 hrs</span> 
+                </div> 
+                <div class="subarea-item"> 
+                    <span class="subarea-nombre">⚡ Programación</span> 
+                    <span class="subarea-horas">8 hrs</span> 
+                </div> 
+                <div class="subarea-item"> 
+                    <span class="subarea-nombre">🌐 Redes y virtualización</span> 
+                    <span class="subarea-horas">4 hrs</span> 
+                </div> 
+                <div class="subarea-item"> 
+                    <span class="subarea-nombre">🇬🇧 English Oriented to cloud computing</span> 
+                    <span class="subarea-horas">4 hrs</span> 
+                </div> 
+            </div> 
+
+            <!-- Undécimo Nivel --> 
+            <div class="card-glass nivel-card"> 
+                <h3>Undécimo Nivel <span>1️⃣1️⃣</span></h3> 
+                <div class="subarea-item"> 
+                    <span class="subarea-nombre">💡 Emprendimiento e innovación</span> 
+                    <span class="subarea-horas">4 hrs</span> 
+                </div> 
+                <div class="subarea-item"> 
+                    <span class="subarea-nombre">⚡ Programación</span> 
+                    <span class="subarea-horas">4 hrs</span> 
+                </div> 
+                <div class="subarea-item"> 
+                    <span class="subarea-nombre">🌐 Redes y virtualización</span> 
+                    <span class="subarea-horas">4 hrs</span> 
+                </div> 
+                <div class="subarea-item"> 
+                    <span class="subarea-nombre">☁️ Servicios y recursos en la nube</span> 
+                    <span class="subarea-horas">8 hrs</span> 
+                </div> 
+                <div class="subarea-item"> 
+                    <span class="subarea-nombre">🇬🇧 English Oriented to cloud computing</span> 
+                    <span class="subarea-horas">4 hrs</span> 
+                </div> 
+            </div> 
+
+            <!-- Duodécimo Nivel --> 
+            <div class="card-glass nivel-card"> 
+                <h3>Duodécimo Nivel <span>1️⃣2️⃣</span></h3> 
+                <div class="subarea-item"> 
+                    <span class="subarea-nombre">☁️ Servicios en la nube</span> 
+                    <span class="subarea-horas">8 hrs</span> 
+                </div> 
+                <div class="subarea-item"> 
+                    <span class="subarea-nombre">⚡ Programación</span> 
+                    <span class="subarea-horas">4 hrs</span> 
+                </div> 
+                <div class="subarea-item"> 
+                    <span class="subarea-nombre">🌐 Redes y virtualización</span> 
+                    <span class="subarea-horas">8 hrs</span> 
+                </div> 
+                <div class="subarea-item"> 
+                    <span class="subarea-nombre">🇬🇧 English Oriented to cloud computing</span> 
+                    <span class="subarea-horas">4 hrs</span> 
+                </div> 
+            </div> 
+        </div> 
+    </section> 
+
+    <!-- ================= VISTA 3: PERFIL PROFESIONAL ================= --> 
+    <section id="perfil" class="page-view container" data-x="80" data-y="180"> 
+        <h2 class="section-title">Perfil de Competencias</h2> 
+          
+        <div style="text-align: center; margin-bottom: 2rem;">
+            <button class="btn-tour" onclick="visitarSeccion('perfil', 'Este es el perfil profesional. Al graduarte podrás configurar ambientes virtuales, diseñar redes seguras y automatizar tareas con scripts profesionales con total ética.')">
+                🦸‍♂️ Que el Superhéroe explique el Perfil
+            </button>
+        </div>
+
+        <div class="competencia-box"> 
+            <h3>🛡️ Competencia General</h3> 
+            <p>Ejecutar la configuración, operación y monitoreo de ambientes y servicios en la nube, implementando seguridad, mejores prácticas y mejora continua, conforme instrucciones recibidas, actuando con ética a nivel personal y profesional, participando en equipos de trabajo en la solución de problemas, con comunicación asertiva y promoviendo un ambiente de sana convivencia.</p> 
+        </div> 
+
+        <div class="card-glass"> 
+            <h3 style="color: white; font-size: 1.5rem; margin-bottom: 0.5rem; display: flex; align-items: center; gap: 10px;">📋 Competencias Específicas</h3> 
+            <p style="color: var(--text-muted); margin-bottom: 1.5rem;">Habilidades técnicas clave desarrolladas al concluir la especialidad:</p> 
+            <ul class="skill-list"> 
+                <li><span class="icon-bullet">🔹</span>Configurar requerimientos de ambientes en la nube, según necesidades establecidas y procedimientos de seguridad.</li> 
+                <li><span class="icon-bullet">🔹</span>Configurar redes virtuales, conforme requerimientos establecidos y procedimientos de seguridad.</li> 
+                <li><span class="icon-bullet">🔹</span>Programar scripts de automatización de tareas de configuración en la nube, según requerimientos establecidos, procedimientos de seguridad y buenas prácticas.</li> 
+            </ul> 
+        </div> 
+    </section> 
+
+    <!-- ================= SUPERHÉROE VIAJERO (EN PANTALLA) ================= -->
+    <div id="traveling-superhero">
+        <div class="hero-puppet-body" id="hero-puppet-body">
+            <div class="hero-cape-fly"></div>
+            <div class="hero-head-box">
+                <div class="hero-eyes-row">
+                    <div class="hero-eye-dot"><div class="hero-pupil-dot"></div></div>
+                    <div class="hero-eye-dot"><div class="hero-pupil-dot"></div></div>
+                </div>
+                <div class="hero-mouth-line"></div>
+            </div>
+            <div class="hero-torso-box">
+                <div class="hero-emblem-icon">⚡</div>
+            </div>
+            <div class="hero-pointing-hand" id="hero-pointing-hand">👉</div>
+        </div>
+        <div id="travel-bubble" class="travel-bubble">¡Hola! Soy tu superhéroe guía. Presiona el botón de tour para que me mueva por toda la página explicando cada módulo.</div>
+    </div>
+
+    <!-- ================= SCRIPTS ================= --> 
+    <script> 
+        const heroElement = document.getElementById('traveling-superhero');
+        const puppetBody = document.getElementById('hero-puppet-body');
+        const travelBubble = document.getElementById('travel-bubble');
+        const pointingHand = document.getElementById('hero-pointing-hand');
+
+        // Función para mover al superhéroe a coordenadas específicas de la página y hablar
+        function moverHeroeA(x, y, texto, callback) {
+            heroElement.style.top = y + 'px';
+            heroElement.style.left = x + 'px';
+
+            if (!('speechSynthesis' in window)) {
+                if (callback) callback();
+                return;
+            }
+
+            window.speechSynthesis.cancel();
+            const utterance = new SpeechSynthesisUtterance(texto);
+            utterance.lang = 'es-ES';
+            utterance.rate = 1.05;
+
+            travelBubble.innerText = texto;
+            puppetBody.classList.add('speaking');
+            pointingHand.classList.add('pointing');
+
+            utterance.onend = function() {
+                puppetBody.classList.remove('speaking');
+                pointingHand.classList.remove('pointing');
+                if (callback) callback();
+            };
+
+            utterance.onerror = function() {
+                puppetBody.classList.remove('speaking');
+                pointingHand.classList.remove('pointing');
+                if (callback) callback();
+            };
+
+            window.speechSynthesis.speak(utterance);
+        }
+
+        // Tour guiado automático paso a paso recorriendo las vistas
+        function iniciarTourGuiado() {
+            // Paso 1: Ir a Inicio
+            cambiarVista('inicio');
+            setTimeout(() => {
+                moverHeroeA(50, 220, "¡Bienvenidos al CTP La Suiza! Esta es la especialidad técnica en Servicios en la Nube, donde aprenderás a administrar servidores y plataformas digitales seguras.", () => {
+                    
+                    // Paso 2: Cambiar a Malla Curricular y mover al superhéroe ahí
+                    cambiarVista('malla');
+                    setTimeout(() => {
+                        window.scrollTo({ top: 400, behavior: 'smooth' });
+                        moverHeroeA(50, 480, "Aquí observamos la Malla Curricular distribuida por niveles: décimo, undécimo y duodécimo año con un fuerte enfoque en redes, programación y la nube.", () => {
+                            
+                            // Paso 3: Cambiar a Perfil Profesional y mover al superhéroe
+                            cambiarVista('perfil');
+                            setTimeout(() => {
+                                window.scrollTo({ top: 900, behavior: 'smooth' });
+                                moverHeroeA(50, 750, "Y finalmente, en el Perfil Profesional, se detallan las competencias técnicas y la ética profesional con la que te formarás como especialista. ¡Mucho éxito!");
+                            }, 500);
+
+                        });
+                    }, 500);
+
+                });
+            }, 300);
+        }
+
+        // Función para cambiar de vista por pestaña de navegación
+        function cambiarVista(targetId) {
+            const navBtn = document.querySelector(`.nav-btn[data-target="${targetId}"]`);
+            if (navBtn) {
+                document.querySelectorAll('.nav-links .nav-btn').forEach(nav => nav.classList.remove('active-link'));
+                navBtn.classList.add('active-link');
+            }
+
+            document.querySelectorAll('.page-view').forEach(page => {
+                page.classList.remove('active-view');
+                if (page.id === targetId) {
+                    page.classList.add('active-view');
+                }
+            });
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Visitar una sección específica al hacer clic en su botón
+        function visitarSeccion(targetId, textoExplicacion) {
+            cambiarVista(targetId);
+            setTimeout(() => {
+                moverHeroeA(60, 250, textoExplicacion);
+            }, 400);
+        }
+
+        // 1. SISTEMA DE NAVEGACIÓN SPA CLICKEABLE EN EL MENÚ
+        const navButtons = document.querySelectorAll('.nav-btn'); 
+        navButtons.forEach(btn => { 
+            btn.addEventListener('click', (e) => { 
+                e.preventDefault(); 
+                const targetId = btn.getAttribute('data-target'); 
+                cambiarVista(targetId);
+
+                // Mover al superhéroe a una posición inicial según la sección
+                if(targetId === 'inicio') moverHeroeA(60, 220, "¡Hola! Estamos en el módulo de Inicio de la especialidad.");
+                if(targetId === 'malla') moverHeroeA(60, 250, "¡Revisemos la Malla Curricular juntos!");
+                if(targetId === 'perfil') moverHeroeA(60, 250, "Aquí puedes ver el Perfil Profesional detallado.");
+            }); 
+        }); 
+
+        // Saludo inicial al cargar la página
+        window.addEventListener('DOMContentLoaded', () => {
+            setTimeout(() => {
+                moverHeroeA(60, 220, "¡Hola! Soy tu superhéroe guía. Haz clic en el botón de tour para que camine y explique toda la página por ti.");
+            }, 1000);
+        });
+
+        // 2. FONDO DE PARTÍCULAS INTERACTIVAS (CANVAS HTML5) 
+        const canvas = document.getElementById('canvas-bg'); 
+        const ctx = canvas.getContext('2d'); 
+        let particlesArray; 
+
+        canvas.width = window.innerWidth; 
+        canvas.height = window.innerHeight; 
+        window.addEventListener('resize', () => { 
+            canvas.width = window.innerWidth; 
+            canvas.height = window.innerHeight; 
+            init(); 
+        }); 
+
+        class Particle { 
+            constructor(x, y, directionX, directionY, size, color) { 
+                this.x = x; this.y = y; 
+                this.directionX = directionX; this.directionY = directionY; 
+                this.size = size; this.color = color; 
+            } 
+            draw() { 
+                ctx.beginPath(); 
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2, false); 
+                ctx.fillStyle = this.color; 
+                ctx.fill(); 
+            } 
+            update() { 
+                if (this.x > canvas.width || this.x < 0) this.directionX = -this.directionX; 
+                if (this.y > canvas.height || this.y < 0) this.directionY = -this.directionY; 
+                this.x += this.directionX; 
+                this.y += this.directionY; 
+                this.draw(); 
+            } 
+        } 
+
+        function init() { 
+            particlesArray = []; 
+            let numberOfParticles = (canvas.height * canvas.width) / 9000; 
+            for (let i = 0; i < numberOfParticles; i++) { 
+                let size = (Math.random() * 2) + 1; 
+                let x = (Math.random() * ((innerWidth - size * 2) - (size * 2)) + size * 2); 
+                let y = (Math.random() * ((innerHeight - size * 2) - (size * 2)) + size * 2); 
+                let directionX = (Math.random() * 1) - 0.5; 
+                let directionY = (Math.random() * 1) - 0.5; 
+                let color = 'rgba(0, 210, 255, 0.5)'; 
+                particlesArray.push(new Particle(x, y, directionX, directionY, size, color)); 
+            } 
+        } 
+
+        function connect() { 
+            let opacityValue = 1; 
+            for (let a = 0; a < particlesArray.length; a++) { 
+                for (let b = a; b < particlesArray.length; b++) { 
+                    let distance = ((particlesArray[a].x - particlesArray[b].x) * (particlesArray[a].x - particlesArray[b].x)) +  
+                                   ((particlesArray[a].y - particlesArray[b].y) * (particlesArray[a].y - particlesArray[b].y)); 
+                    if (distance < (canvas.width / 7) * (canvas.height / 7)) { 
+                        opacityValue = 1 - (distance / 20000); 
+                        ctx.strokeStyle = 'rgba(0, 210, 255,' + opacityValue + ')'; 
+                        ctx.lineWidth = 1; 
+                        ctx.beginPath(); 
+                        ctx.moveTo(particlesArray[a].x, particlesArray[a].y); 
+                        ctx.lineTo(particlesArray[b].x, particlesArray[b].y); 
+                        ctx.stroke(); 
+                    } 
+                } 
+            } 
+        } 
+
+        function animate() { 
+            requestAnimationFrame(animate); 
+            ctx.clearRect(0, 0, innerWidth, innerHeight); 
+            for (let i = 0; i < particlesArray.length; i++) { 
+                particlesArray[i].update(); 
+            } 
+            connect(); 
+        } 
+
+        init(); 
+        animate(); 
+    </script> 
+</body> 
+</html>
